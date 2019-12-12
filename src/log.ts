@@ -114,12 +114,6 @@ export default class Log {
     }
   }
 
-  cachedObjectUndefinedWarning(fieldName: string, object: object) {
-    this.error(
-      `Field ${fieldName} is not cached. ` + 
-      `Use method 'is${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)}Cached' before accessing.`, object, new Error().stack)
-  }
-
   clone(): Log {
     let clone = new Log(this.filePath)
     clone.fnName = this.fnName

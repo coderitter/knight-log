@@ -1,7 +1,7 @@
 {
   "name": "mega-nice-log",
-  "version": "1.0.0",
-  "description": "A mega nice log.",
+  "version": "1.0.1",
+  "description": "A mega nice log",
   "main": "lib/log.js",
   "types": "lib/log.d.ts",
   "files": [
@@ -25,7 +25,6 @@
     ""
   ],
   "author": "Coderitter GmbH",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/c0deritter/mega-nice-log/issues"
   },
