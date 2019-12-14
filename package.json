@@ -1,5 +1,5 @@
 {
-  "name": "mega-nice-log",
+  "name": "coderitter-api-mega-nice-log",
   "version": "1.0.1",
   "description": "A mega nice log",
   "main": "lib/log.js",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/c0deritter/mega-nice-log.git"
+    "url": "git+https://github.com/c0deritter/mega-nice-log/tree/coderitter-api"
   },
   "keywords": [
     ""
