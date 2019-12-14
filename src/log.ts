@@ -1,5 +1,3 @@
-import { parse } from 'path'
-
 export default class Log {
 
   static readonly logs: Log[] = []
@@ -19,12 +17,12 @@ export default class Log {
   }
 
   get filename(): string {
-    return parse(this.filePath).base
+    return getFilename(this.filePath)
   }
 
   get clsName(): string {
     if (this._clsName == undefined) {
-      return parse(this.filePath).name
+      return getFilenameWithoutExtension(this.filePath)
     }
     
     return this._clsName
@@ -146,6 +144,25 @@ function levelToNumber(level: string|undefined) {
     case 'debug': return 4
     case 'insane': return 5
   }
+}
+
+function getFilename(filePath: string): string {
+  let sep = '/'
+  
+  if (filePath.indexOf('\\') > -1) {
+    sep = '\\'
+  }
+
+  let split = filePath.split(sep)
+
+  return split[split.length - 1]
+}
+
+function getFilenameWithoutExtension(filePath: string): string {
+  let filename = getFilename(filePath)
+
+  let split = filename.split('.')
+  return split[split.length - 1]
 }
 
 const reset = "\x1b[0m"

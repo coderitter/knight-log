@@ -1,6 +1,6 @@
 {
   "name": "coderitter-api-mega-nice-log",
-  "version": "1.0.1",
+  "version": "1.2.0",
   "description": "A mega nice log",
   "main": "lib/log.js",
   "types": "lib/log.d.ts",
