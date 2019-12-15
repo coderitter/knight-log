@@ -162,7 +162,7 @@ function getFilenameWithoutExtension(filePath: string): string {
   let filename = getFilename(filePath)
 
   let split = filename.split('.')
-  return split[split.length - 1]
+  return split.length > 0 ? split[0] : 'filenameWithoutExtension'
 }
 
 const reset = "\x1b[0m"
