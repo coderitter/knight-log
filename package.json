@@ -1,7 +1,8 @@
 {
   "name": "coderitter-api-log",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "The Coderitter API log",
+  "description": "A mega nice log",
   "main": "lib/log.js",
   "types": "lib/log.d.ts",
   "files": [
@@ -9,12 +10,16 @@
   ],
   "dependencies": {},
   "devDependencies": {
+    "@types/chai": "^4.2.7",
+    "@types/mocha": "^5.2.7",
     "@types/node": "^12.12.16",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2",
     "ts-node": "^8.4.1",
     "typescript": "^3.7.2"
   },
   "scripts": {
-    "test": "mocha -r ts-node/register test/**/*.spec.ts",
+    "test": "mocha -r ts-node/register test/**/*.test.ts",
     "build": "rm -rf lib && tsc"
   },
   "repository": {
