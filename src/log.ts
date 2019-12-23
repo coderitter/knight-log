@@ -84,31 +84,31 @@ export default class Log {
 
   error(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('error')) {
-      console.error(this.createMessageString(message), ...optionalParams)
+      console.error(this.createMessageString('red', message), ...optionalParams)
     }
   }
 
   warn(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('warn')) {
-      console.warn(this.createMessageString(message), ...optionalParams)
+      console.warn(this.createMessageString('yellow' + message), ...optionalParams)
     }
   }
 
   info(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('info')) {
-      console.info(this.createMessageString(message), ...optionalParams)
+      console.info(this.createMessageString('white', message), ...optionalParams)
     }
   }
 
   debug(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('debug')) {
-      console.debug(this.createMessageString(message), ...optionalParams)
+      console.debug(this.createMessageString('cyan', message), ...optionalParams)
     }
   }
 
   insane(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('insane')) {
-      console.debug(this.createMessageString(message), ...optionalParams)
+      console.debug(this.createMessageString('cyan', message), ...optionalParams)
     }
   }
 
@@ -119,10 +119,10 @@ export default class Log {
     return clone
   }
 
-  private createMessageString(message?: string) {
+  private createMessageString(color: string, message?: string) {
     if (this._clsName != undefined) {
       return resolveColors(
-        'color(cyan)' + 
+        resolveColor(color) + 
         this.filename + ' > ' + 
         this.clsName + (this.fnName ? '.' + this.fnName : '') + 
         '$color(reset) ' + 
@@ -131,7 +131,7 @@ export default class Log {
     }
     else {
       return resolveColors(
-        'color(cyan)' + 
+        resolveColor + 
         this.clsName + (this.fnName ? '.' + this.fnName : '') + 
         '$color(reset) ' + 
         (message ? message : '')) + 
