@@ -1,6 +1,6 @@
 {
   "name": "coderitter-api-log",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "The Coderitter API log",
   "description": "A mega nice log",
   "main": "lib/log.js",

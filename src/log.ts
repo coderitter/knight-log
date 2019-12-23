@@ -131,17 +131,17 @@ export default class Log {
         resolveColor(color) + 
         this.filename + ' > ' + 
         this.clsName + (this.fnName ? '.' + this.fnName : '') + 
-        '$color(reset) ' + 
+        resolveColor('reset') + ' ' + 
         (message ? message : '')) + 
-        'color(reset)'
+        resolveColor('reset')
     }
     else {
       return resolveColors(
-        resolveColor + 
+        resolveColor(color) + 
         this.clsName + (this.fnName ? '.' + this.fnName : '') + 
-        '$color(reset) ' + 
+        resolveColor('reset') + ' ' + 
         (message ? message : '')) + 
-        'color(reset)'
+        resolveColor('reset')
     }
   }
 }
