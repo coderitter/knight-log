@@ -84,31 +84,31 @@ export default class Log {
 
   error(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('error')) {
-      console.error(this.createLogString(message), ...optionalParams)
+      console.error(this.createMessageString(message), ...optionalParams)
     }
   }
 
   warn(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('warn')) {
-      console.warn(this.createLogString(message), ...optionalParams)
+      console.warn(this.createMessageString(message), ...optionalParams)
     }
   }
 
   info(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('info')) {
-      console.info(this.createLogString(message), ...optionalParams)
+      console.info(this.createMessageString(message), ...optionalParams)
     }
   }
 
   debug(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('debug')) {
-      console.debug(this.createLogString(message), ...optionalParams)
+      console.debug(this.createMessageString(message), ...optionalParams)
     }
   }
 
   insane(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('insane')) {
-      console.debug(this.createLogString(message), ...optionalParams)
+      console.debug(this.createMessageString(message), ...optionalParams)
     }
   }
 
@@ -119,12 +119,23 @@ export default class Log {
     return clone
   }
 
-  private createLogString(message?: string) {
+  private createMessageString(message?: string) {
     if (this._clsName != undefined) {
-      return '\x1b[36m' + this.filename + ' > ' + this.clsName + (this.fnName ? '.' + this.fnName : '') + '$\x1b[0m ' + (message ? message : '')
+      return resolveColors(
+        'color(cyan)' + 
+        this.filename + ' > ' + 
+        this.clsName + (this.fnName ? '.' + this.fnName : '') + 
+        '$color(reset) ' + 
+        (message ? message : '')) + 
+        'color(reset)'
     }
     else {
-      return '\x1b[36m' + this.clsName + (this.fnName ? '.' + this.fnName : '') + '$\x1b[0m ' + (message ? message : '')
+      return resolveColors(
+        'color(cyan)' + 
+        this.clsName + (this.fnName ? '.' + this.fnName : '') + 
+        '$color(reset) ' + 
+        (message ? message : '')) + 
+        'color(reset)'
     }
   }
 }
@@ -159,28 +170,55 @@ function getFilenameWithoutExtension(filePath: string): string {
   return split.length > 0 ? split[0] : 'filenameWithoutExtension'
 }
 
-const reset = "\x1b[0m"
-const bright = "\x1b[1m"
-const dim = "\x1b[2m"
-const underscore = "\x1b[4m"
-const blink = "\x1b[5m"
-const reverse = "\x1b[7m"
-const hidden = "\x1b[8m"
+export function resolveColors(str: string): string {
+  let regex = /color\((\w+)\)/
+  let match = regex.exec(str)
 
-const fontBlack = "\x1b[30m"
-const fontRed = "\x1b[31m"
-const fontGreen = "\x1b[32m"
-const fontYellow = "\x1b[33m"
-const fontBlue = "\x1b[34m"
-const fontMagenta = "\x1b[35m"
-const fontCyan = "\x1b[36m"
-const fontWhite = "\x1b[37m"
+  while (match) {
+    let color = match[0]
+    let colorName = match[1]
+    let colorCode = resolveColor(colorName)
+    str = str.replace(color, colorCode)
+    match = regex.exec(str)
+  }
 
-const backgroundBlack = "\x1b[40m"
-const backgroundRed = "\x1b[41m"
-const backgroundGreen = "\x1b[42m"
-const backgroundYellow = "\x1b[43m"
-const backgroundBlue = "\x1b[44m"
-const backgroundMagenta = "\x1b[45m"
-const backgroundCyan = "\x1b[46m"
-const backgroundWhite = "\x1b[47m"
+  return str
+}
+
+function resolveColor(colorName: string): string {
+  if (typeof window === 'undefined') {
+    // running in Node
+    switch (colorName) {
+      case 'reset': return '\x1b[0m'
+      case 'bright': return '\x1b[1m'
+      case 'dim': return '\x1b[2m'
+      case 'underscore': return '\x1b[4m'
+      case 'blink': return '\x1b[5m'
+      case 'reverse': return '\x1b[7m'
+      case 'hidden': return '\x1b[8m'
+      
+      case 'black': return '\x1b[30m'
+      case 'red': return '\x1b[31m'
+      case 'green': return '\x1b[32m'
+      case 'yellow': return '\x1b[33m'
+      case 'blue': return '\x1b[34m'
+      case 'magenta': return '\x1b[35m'
+      case 'cyan': return '\x1b[36m'
+      case 'white': return '\x1b[37m'
+      
+      case 'bgBlack': return '\x1b[40m'
+      case 'bgRed': return '\x1b[41m'
+      case 'bgGreen': return '\x1b[42m'
+      case 'bgYellow': return '\x1b[43m'
+      case 'bgBlue': return '\x1b[44m'
+      case 'bgMagenta': return '\x1b[45m'
+      case 'bgCyan': return '\x1b[46m'
+      case 'bgWhite': return '\x1b[47m'
+      default: return ''
+    }
+  }
+  else {
+    // if running in browser colors are not supported
+    return ''
+  }
+}
