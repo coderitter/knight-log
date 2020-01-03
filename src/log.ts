@@ -90,7 +90,7 @@ export default class Log {
 
   warn(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('warn')) {
-      console.warn(this.createMessageString('yellow' + message), ...optionalParams)
+      console.warn(this.createMessageString('yellow', message), ...optionalParams)
     }
   }
 
