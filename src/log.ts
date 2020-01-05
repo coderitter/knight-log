@@ -37,16 +37,16 @@ export default class Log {
       return this._level
     }
 
-    if (this.filename in Log.levels) {
-      return Log.levels[this.filename]
+    if (this.clsName + '.' + this.fnName in Log.levels) {
+      return Log.levels[this.clsName + '.' + this.fnName]
     }
 
     if (this.clsName in Log.levels) {
       return Log.levels[this.clsName]
     }
 
-    if (this.clsName + '.' + this.fnName in Log.levels) {
-      return Log.levels[this.clsName + '.' + this.fnName]
+    if (this.filename in Log.levels) {
+      return Log.levels[this.filename]
     }
 
     return Log.globalLevel
