@@ -118,7 +118,7 @@ When you run your tests it may be useful to silence all the output.
 Log.gobalLevel = 'silent'
 ```
 
-### Use color in the first log message
+### Use colors in the first message parameter
 
 The first given message parameter may contain color definitions.
 
