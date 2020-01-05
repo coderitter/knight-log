@@ -50,7 +50,7 @@ HttpServer$ Running on port 80
 If your file contains several classes you can depict a class name.
 
 ```typescript
-let l = log.cls('Request)
+let l = log.cls('Request')
 l.debug('this.url =', this.url)
 ```
 
@@ -71,6 +71,8 @@ HttpServer.ts > HttpServer$ Entering HttpServer.handler
 HttpServer.ts > HttpServer.handler$ Handling incoming request...
 HttpServer.ts > HttpServer.handler$ request = Request { url: 'http://mega-nice.com/json' }
 ```
+
+When instantiating the function specific logger it will print a `Entering ...` message which is very useful when trying to follow the flow of the program.
 
 ### Different color per log level
 
@@ -110,6 +112,12 @@ You can set a global log level which will be used if there is no other declarati
 Log.globalLevel = 'warning'
 ```
 
+When you run your tests it may be useful to silence all the output.
+
+```typescript
+Log.gobalLevel = 'silent'
+```
+
 ### Use color in the first log message
 
 The first given message parameter may contain color definitions.
@@ -120,30 +128,4 @@ log.debug('The value was color(magenta)undefined')
 
 This will output the word `undefined` with a magenta color.
 
-The following colors are supported. Those are the standard console colors.
-
-- `reset`
-- `bright`
-- `dim`
-- `underscore`
-- `blink`
-- `reverse`
-- `hidden`
-      
-- `black`
-- `red`
-- `green`
-- `yellow`
-- `blue`
-- `magenta`
-- `cyan`
-- `white`
-      
-- `bgBlack`
-- `bgRed`
-- `bgGreen`
-- `bgYellow`
-- `bgBlue`
-- `bgMagenta`
-- `bgCyan`
-- `bgWhite`
+The following colors are supported. Those are the standard console colors: `reset`, `bright`, `dim`, `underscore`, `blink`, `reverse`, `hidden`, `black`, `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, `white`, `bgBlack`, `bgRed`, `bgGreen`, `bgYellow`, `bgBlue`, `bgMagenta`, `bgCyan`, `bgWhite`
