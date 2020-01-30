@@ -92,31 +92,31 @@ export default class Log {
 
   error(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('error')) {
-      console.error(this.createMessageString('red', message), ...optionalParams)
+      console.log(this.createMessageString('red', message), ...optionalParams)
     }
   }
 
   warn(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('warn')) {
-      console.warn(this.createMessageString('yellow', message), ...optionalParams)
+      console.log(this.createMessageString('yellow', message), ...optionalParams)
     }
   }
 
   info(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('info')) {
-      console.info(this.createMessageString('white', message), ...optionalParams)
+      console.log(this.createMessageString('white', message), ...optionalParams)
     }
   }
 
   debug(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('debug')) {
-      console.debug(this.createMessageString('cyan', message), ...optionalParams)
+      console.log(this.createMessageString('cyan', message), ...optionalParams)
     }
   }
 
   insane(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('insane')) {
-      console.debug(this.createMessageString('cyan', message), ...optionalParams)
+      console.log(this.createMessageString('cyan', message), ...optionalParams)
     }
   }
 
