@@ -170,12 +170,4 @@ describe('Log', function() {
       expect(str).to.equal('\x1b[36mFilename.ts > Class.method \x1b[0mmessage\x1b[0m')
     })
   })
-
-  describe('resolveColors', function() {
-    it('should replace all color strings with the correct code', function() {
-      let str = 'color(red)Error!!!!color(reset)color(blue)not'
-      let resolved = resolveColors(str)
-      expect(resolved).to.equal('\x1b[31mError!!!!\x1b[0m\x1b[34mnot')
-    })
-  })
 })

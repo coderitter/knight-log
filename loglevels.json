@@ -1,0 +1,5 @@
+{
+  "globalLevel": "silent",
+  "a": "warn",
+  "b": "debug"
+}

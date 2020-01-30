@@ -153,15 +153,6 @@ export default class Log {
     this.debug(name + ' =', value)
   }
 
-  clone(): Log {
-    let clone = new Log(this.filePath)
-    clone._clsName = this._clsName
-    clone.fnName = this.fnName
-    clone.mtName = this.mtName
-    clone.level = this.level
-    return clone
-  }
-
   createMessageString(color: string, message?: string) {
     if (this.mtName) {
       if (this._clsName) {
@@ -193,6 +184,15 @@ export default class Log {
         (message ? message : '') +
         resolveColor('reset')
     }
+  }
+
+  clone(): Log {
+    let clone = new Log(this.filePath)
+    clone._clsName = this._clsName
+    clone.fnName = this.fnName
+    clone.mtName = this.mtName
+    clone.level = this.level
+    return clone
   }
 }
 
@@ -278,3 +278,45 @@ function resolveColor(colorName: string): string {
     return ''
   }
 }
+
+export function readConfigFile() {
+  if (typeof window === 'undefined') {
+    let path = require('path')
+    let fs = require('fs')
+    let configFile = process.cwd() + path.sep + 'loglevels.json'
+    
+    if (fs.existsSync(configFile)) {
+      console.log('Found log level config file: ' + configFile)
+
+      try {
+        var configJson = fs.readFileSync(configFile, 'utf8')
+      }
+      catch (e) {
+        console.log('Could not read content of log level config file: ' + e.message)
+        return 
+      }
+
+      try {
+        var config = JSON.parse(configJson)
+      }
+      catch (e) {
+        console.log('Could not parse JSON inside log level config file: ' + e.message)
+        return
+      }
+
+      if (config.globalLevel != undefined) {
+        console.log('Setting global level: ' + config.globalLevel)
+        Log.globalLevel = config.globalLevel
+        delete config.globalLevel
+      }
+
+      console.log('Setting levels: ', config)
+      Log.levels = config
+    }
+    else {
+      console.log('Could not find log level config file: ' + configFile)
+    }
+  }
+}
+
+readConfigFile()
