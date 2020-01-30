@@ -323,8 +323,6 @@ export function readConfigFile() {
         delete config.globalLevel
       }
 
-      console.log('Setting levels: ', config)
-
       let reworkedConfig: any = {}
 
       for (let key in config) {
@@ -335,6 +333,7 @@ export function readConfigFile() {
         }
       }
 
+      console.log('Setting levels: ', reworkedConfig)
       Log.levels = reworkedConfig
     }
     else {
