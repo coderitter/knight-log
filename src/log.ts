@@ -279,11 +279,19 @@ function resolveColor(colorName: string): string {
   }
 }
 
-export function readConfigFile() {
+export function configFileName(): string {
   if (typeof window === 'undefined') {
     let path = require('path')
+    return process.cwd() + path.sep + 'loglevels.json'
+  }
+
+  return ''
+}
+
+export function readConfigFile() {
+  if (typeof window === 'undefined') {
     let fs = require('fs')
-    let configFile = process.cwd() + path.sep + 'loglevels.json'
+    let configFile = configFileName()
     
     if (fs.existsSync(configFile)) {
       console.log('Found log level config file: ' + configFile)
@@ -300,7 +308,7 @@ export function readConfigFile() {
         var config = JSON.parse(configJson)
       }
       catch (e) {
-        console.log('Could not parse JSON inside log level config file: ' + e.message)
+        console.log('Could not parse JSON from log level config file: ' + e.message)
         return
       }
 
@@ -320,3 +328,12 @@ export function readConfigFile() {
 }
 
 readConfigFile()
+
+if (typeof window === 'undefined') {
+  console.log('Installed file watcher for loglevels.json')
+  let fs = require('fs')
+  let watcher = fs.watch(configFileName(), () => {
+    console.log('loglevels.json changed. Re-reading content...')
+    readConfigFile()
+  })
+}
