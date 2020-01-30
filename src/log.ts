@@ -120,7 +120,9 @@ export default class Log {
     }
   }
 
-  // var(name: string, value: any, level: string = 'debug')
+  var(name: string, value: any): void {
+    this.debug(name + ' =', value)
+  }
 
   clone(): Log {
     let clone = new Log(this.filePath)
