@@ -7,6 +7,7 @@ export default class Log {
   filePath: string
   private _clsName?: string
   fnName?: string
+  mtName?: string
   private _level?: string
 
   constructor(__filename: string, level?: string) {
@@ -76,9 +77,16 @@ export default class Log {
   }
 
   fn(fnName: string): Log {
-    this.debug(`Entering '${this.clsName}.${fnName}'`)
+    this.debug(`Entering '${this.filename} > ${fnName}'`)
     let clone = this.clone()
     clone.fnName = fnName
+    return clone
+  }
+
+  mt(mtName: string): Log {
+    this.debug(`Entering '${this.clsName}.${mtName}'`)
+    let clone = this.clone()
+    clone.mtName = mtName
     return clone
   }
 
@@ -112,29 +120,46 @@ export default class Log {
     }
   }
 
+  // var(name: string, value: any, level: string = 'debug')
+
   clone(): Log {
     let clone = new Log(this.filePath)
+    clone._clsName = this._clsName
     clone.fnName = this.fnName
+    clone.mtName = this.mtName
     clone.level = this.level
     return clone
   }
 
-  private createMessageString(color: string, message?: string) {
-    if (this._clsName != undefined) {
-      return resolveColors(
-        resolveColor(color) + 
-        this.filename + ' > ' + 
-        this.clsName + (this.fnName ? '.' + this.fnName : '') + 
-        resolveColor('reset') + ' ' + 
-        (message ? message : '')) + 
+  createMessageString(color: string, message?: string) {
+    if (this.mtName) {
+      if (this._clsName) {
+        return resolveColor(color) + 
+          this.filename + ' > ' + this._clsName + '.' + this.mtName + ' ' +
+          resolveColor('reset') +
+          (message ? message : '') +
+          resolveColor('reset')
+      }
+      else {
+        return resolveColor(color) + 
+          this.clsName + '.' + this.mtName + ' ' +
+          resolveColor('reset') +
+          (message ? message : '') +
+          resolveColor('reset')
+      }
+    }
+    else if (this.fnName) {
+      return resolveColor(color) + 
+        this.filename + ' > ' + this.fnName + ' ' +
+        resolveColor('reset') +
+        (message ? message : '') +
         resolveColor('reset')
     }
     else {
-      return resolveColors(
-        resolveColor(color) + 
-        this.clsName + (this.fnName ? '.' + this.fnName : '') + 
-        resolveColor('reset') + ' ' + 
-        (message ? message : '')) + 
+      return resolveColor(color) + 
+        this.filename + ' ' +
+        resolveColor('reset') +
+        (message ? message : '') +
         resolveColor('reset')
     }
   }
