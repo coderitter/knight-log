@@ -150,7 +150,12 @@ export default class Log {
   }
 
   var(name: string, value: any): void {
-    this.debug(name + ' =', value)
+    if (typeof window === 'undefined') {
+      this.debug(name + ' =', value)
+    }
+    else {
+      this.debug(name, value)
+    }
   }
 
   createMessageString(color: string, message?: string) {
