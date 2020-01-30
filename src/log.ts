@@ -317,14 +317,25 @@ export function readConfigFile() {
         return
       }
 
-      if (config.globalLevel != undefined) {
+      if (config.globalLevel) {
         console.log('Setting global level: ' + config.globalLevel)
         Log.globalLevel = config.globalLevel
         delete config.globalLevel
       }
 
       console.log('Setting levels: ', config)
-      Log.levels = config
+
+      let reworkedConfig: any = {}
+
+      for (let key in config) {
+        let value = config[key]
+
+        if (value) {
+          reworkedConfig[key] = value
+        }
+      }
+
+      Log.levels = reworkedConfig
     }
     else {
       console.log('Could not find log level config file: ' + configFile)
@@ -335,10 +346,15 @@ export function readConfigFile() {
 readConfigFile()
 
 if (typeof window === 'undefined') {
-  console.log('Installed file watcher for loglevels.json')
   let fs = require('fs')
-  let watcher = fs.watch(configFileName(), () => {
-    console.log('loglevels.json changed. Re-reading content...')
-    readConfigFile()
-  })
+
+  if (fs.existsSync(configFileName())) {
+    // TODO: close watcher maybe: watcher.close()
+    let watcher = fs.watch(configFileName(), () => {
+      console.log('loglevels.json changed. Re-reading content...')
+      readConfigFile()
+    })
+
+    console.log('Installed file watcher for loglevels.json')
+  }
 }

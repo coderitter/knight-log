@@ -30,6 +30,27 @@ describe('functions', function() {
       expect(Log.levels['a']).to.equal('warn')
       expect(Log.levels['b']).to.equal('debug')
     })
+
+    it('should only set values if they evaluate to true', function() {
+      Log.globalLevel = 'info'
+
+      let config = {
+        'globalLevel': '',
+        'a': false,
+        'b': 0,
+        'c': null
+      }
+
+      let configJson = JSON.stringify(config)
+      fs.writeFileSync(configFileName(), configJson, 'utf8')
+
+      readConfigFile()
+      
+      expect(Log.globalLevel).to.equal('info')
+      expect(Log.levels['a']).to.be.undefined
+      expect(Log.levels['b']).to.be.undefined
+      expect(Log.levels['c']).to.be.undefined
+    })
   })
 
   describe('loglevels.json file watcher', function() {
