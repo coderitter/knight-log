@@ -38,16 +38,45 @@ export default class Log {
       return this._level
     }
 
-    if (this.clsName + '.' + this.fnName in Log.levels) {
-      return Log.levels[this.clsName + '.' + this.fnName]
+    // Filename.ts > Class.method
+    let filePlusClassPlusMethod = `${this.filename} > ${this.clsName}.${this.mtName}`
+    if (filePlusClassPlusMethod in Log.levels) {
+      return Log.levels[filePlusClassPlusMethod]
     }
 
-    if (this.clsName in Log.levels) {
-      return Log.levels[this.clsName]
+    // Filename.ts > Class
+    let filePlusClass = `${this.filename} > ${this.clsName}`
+    if (filePlusClass in Log.levels) {
+      return Log.levels[filePlusClass]
     }
 
+    // Filename.ts > function
+    let filePlusFunction = `${this.filename} > ${this.fnName}`
+    if (filePlusFunction in Log.levels) {
+      return Log.levels[filePlusFunction]
+    }
+
+    // Filename.ts
     if (this.filename in Log.levels) {
       return Log.levels[this.filename]
+    }
+
+    // Class.method
+    let classPlusMethod = `${this.clsName}.${this.mtName}`
+    if (classPlusMethod in Log.levels) {
+      return Log.levels[classPlusMethod]
+    }
+
+    // Class
+    let classOnly = `${this.clsName}`
+    if (classOnly in Log.levels) {
+      return Log.levels[classOnly]
+    }
+
+    // function
+    let functionOnly = `${this.fnName}`
+    if (functionOnly in Log.levels) {
+      return Log.levels[functionOnly]
     }
 
     return Log.globalLevel
