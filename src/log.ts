@@ -295,7 +295,10 @@ export function configFileName(): string {
 
 export function readConfigFile() {
   if (typeof window === 'undefined') {
-    let fs = require('fs')
+    // requiring fs with the help of a  string variable will confuse webpack to not throw this error
+    // Module not found: Error: Can't resolve 'fs' in
+    let fsName = 'fs'
+    let fs = require(fsName)
     let configFile = configFileName()
     
     if (fs.existsSync(configFile)) {
@@ -345,7 +348,10 @@ export function readConfigFile() {
 readConfigFile()
 
 if (typeof window === 'undefined') {
-  let fs = require('fs')
+  // requiring fs with the help of a  string variable will confuse webpack to not throw this error
+  // Module not found: Error: Can't resolve 'fs' in
+  let fsName = 'fs'
+  let fs = require(fsName)
 
   if (fs.existsSync(configFileName())) {
     // TODO: close watcher maybe: watcher.close()
