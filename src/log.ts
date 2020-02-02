@@ -297,6 +297,7 @@ export function readConfigFile() {
   if (typeof window === 'undefined') {
     // requiring fs with the help of a  string variable will confuse webpack to not throw this error
     // Module not found: Error: Can't resolve 'fs' in
+    // it will result in a critical warning though: Critical dependency: the request of a dependency is an expression
     let fsName = 'fs'
     let fs = require(fsName)
     let configFile = configFileName()
@@ -350,6 +351,7 @@ readConfigFile()
 if (typeof window === 'undefined') {
   // requiring fs with the help of a  string variable will confuse webpack to not throw this error
   // Module not found: Error: Can't resolve 'fs' in
+  // it will result in a critical warning though: Critical dependency: the request of a dependency is an expression
   let fsName = 'fs'
   let fs = require(fsName)
 
