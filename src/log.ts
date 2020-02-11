@@ -327,7 +327,7 @@ export function readConfigFile() {
         delete config.globalLevel
       }
       else {
-        config.globalLevel = undefined
+        Log.globalLevel = 'info'
       }
 
       let reworkedConfig: any = {}

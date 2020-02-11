@@ -1,6 +1,6 @@
 {
   "name": "mega-nice-log",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "A mega nice log",
   "main": "lib/log.js",
   "types": "lib/log.d.ts",

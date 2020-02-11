@@ -31,8 +31,8 @@ describe('functions', function() {
       expect(Log.levels['b']).to.equal('debug')
     })
 
-    it('should only set values if they evaluate to true', function() {
-      Log.globalLevel = 'info'
+    it.only('should only set values if they evaluate to true', function() {
+      Log.globalLevel = 'error'
 
       let config = {
         'globalLevel': '',
