@@ -3,6 +3,7 @@ export default class Log {
   static readonly logs: Log[] = []
   static levels: { [key: string]: string } = {}
   static globalLevel: string = 'info'
+  static watcher: any
 
   filePath: string
   private _clsName?: string
@@ -360,7 +361,7 @@ if (typeof window === 'undefined') {
 
   if (fs.existsSync(configFileName())) {
     // TODO: close watcher maybe: watcher.close()
-    let watcher = fs.watch(configFileName(), () => {
+    Log.watcher = fs.watch(configFileName(), () => {
       console.log('loglevels.json changed. Re-reading content...')
       readConfigFile()
     })
