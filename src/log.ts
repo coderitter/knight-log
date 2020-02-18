@@ -91,16 +91,16 @@ export default class Log {
     return levelToNumber(this.level)
   }
 
-  cls(clsName: string, fnName?: string): Log {
-    if (fnName != undefined) {
-      this.debug(`Entering '${this.clsName}.${fnName}'`)
+  cls(clsName: string, mtName?: string): Log {
+    if (mtName != undefined) {
+      this.debug(`Entering '${this.clsName}.${mtName}'`)
     }
     
     let clone = this.clone()
     clone.clsName = clsName
 
-    if (fnName != undefined) {
-      clone.fnName = fnName      
+    if (mtName != undefined) {
+      clone.mtName = mtName      
     }
 
     return clone
