@@ -51,7 +51,7 @@ export default class Log {
       return Log.levels[filePlusClass]
     }
 
-    // Filename.ts > function
+    // Filename.ts > Function
     let filePlusFunction = `${this.filename} > ${this.fnName}`
     if (filePlusFunction in Log.levels) {
       return Log.levels[filePlusFunction]
@@ -74,7 +74,7 @@ export default class Log {
       return Log.levels[classOnly]
     }
 
-    // function
+    // Function
     let functionOnly = `${this.fnName}`
     if (functionOnly in Log.levels) {
       return Log.levels[functionOnly]
@@ -197,7 +197,7 @@ export default class Log {
     clone._clsName = this._clsName
     clone.fnName = this.fnName
     clone.mtName = this.mtName
-    clone.level = this.level
+    clone._level = this._level
     return clone
   }
 }
