@@ -200,6 +200,13 @@ export default class Log {
     clone._level = this._level
     return clone
   }
+
+  static stopWatcher() {
+    if (this.watcher) {
+      this.watcher.stop()
+      console.log('Stopped watcher for loglevels.json')
+    }
+  }
 }
 
 function levelToNumber(level: string|undefined) {
