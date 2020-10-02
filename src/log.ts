@@ -95,7 +95,7 @@ export default class Log {
 
   cls(clsName: string, mtName?: string): Log {
     if (mtName != undefined) {
-      this.debug(`color(bgCyan)Entering '${this.clsName}.${mtName}'`)
+      this.debug(`${resolveColor('bright')}Entering '${this.clsName}.${mtName}'`)
     }
     
     let clone = this.clone()
@@ -109,14 +109,14 @@ export default class Log {
   }
 
   fn(fnName: string): Log {
-    this.debug(`color(bgCyan)Entering '${this.filename} > ${fnName}'`)
+    this.debug(`${resolveColor('bright')}Entering '${this.filename} > ${fnName}'`)
     let clone = this.clone()
     clone.fnName = fnName
     return clone
   }
 
   mt(mtName: string): Log {
-    this.debug(`color(bgCyan)Entering '${this.clsName}.${mtName}'`)
+    this.debug(`${resolveColor('bright')}Entering '${this.clsName}.${mtName}'`)
     let clone = this.clone()
     clone.mtName = mtName
     return clone
