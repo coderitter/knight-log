@@ -4,6 +4,11 @@ import 'mocha'
 import Log, { configFileName, readConfigFile, resolveColors } from '../src/log'
 
 describe('functions', function() {
+  beforeEach(function() {
+    Log.globalLevel = 'info'
+    Log.levels = {}
+  })
+
   describe('resolveColors', function() {
     it('should replace all color strings with the correct code', function() {
       let str = 'color(red)Error!!!!color(reset)color(blue)not'
@@ -25,8 +30,7 @@ describe('functions', function() {
 
       readConfigFile()
       
-      expect(Log.globalLevel).to.equal('silent')
-      expect(Log.levels['globalLevel']).to.be.undefined
+      expect(Log.levels['globalLevel']).to.equal('silent')
       expect(Log.levels['a']).to.equal('warn')
       expect(Log.levels['b']).to.equal('debug')
     })
@@ -46,7 +50,8 @@ describe('functions', function() {
 
       readConfigFile()
       
-      expect(Log.globalLevel).to.equal('info')
+      expect(Log.globalLevel).to.equal('error')
+      expect(Log.levels['globalLevel']).to.be.undefined
       expect(Log.levels['a']).to.be.undefined
       expect(Log.levels['b']).to.be.undefined
       expect(Log.levels['c']).to.be.undefined
@@ -67,8 +72,8 @@ describe('functions', function() {
 
       await new Promise(resolve => setTimeout(resolve, 100))
 
-      expect(Log.globalLevel).to.equal('debug')
-      expect(Log.levels['globalLevel']).to.be.undefined
+      expect(Log.globalLevel).to.equal('info')
+      expect(Log.levels['globalLevel']).to.equal('debug')
       expect(Log.levels['a']).to.be.undefined
       expect(Log.levels['b']).to.be.undefined
       expect(Log.levels['c']).to.equal('info')

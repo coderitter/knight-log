@@ -1,13 +1,19 @@
-import 'mocha'
 import { expect } from 'chai'
-import Log, { resolveColors } from '../src/log'
+import 'mocha'
+import Log from '../src/log'
 
 describe('Log', function() {
+  beforeEach(function() {
+    Log.globalLevel = 'info'
+    Log.levels = {}
+  })
+
   describe('level', function() {
     it('should use the global level', function() {
       Log.globalLevel = 'error'
 
       let log = new Log('Filename.ts')
+      console.log(Log)
 
       expect(log.level).to.equal('error')
     })

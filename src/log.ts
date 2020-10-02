@@ -1,6 +1,5 @@
 export default class Log {
 
-  static readonly logs: Log[] = []
   static levels: { [key: string]: string } = {}
   static globalLevel: string = 'info'
   static watcher: any
@@ -14,8 +13,6 @@ export default class Log {
   constructor(filename: string, level?: string) {
     this.filename = filename
     this._level = level
-
-    Log.logs.push(this)
   }
 
   get filenameWithoutExtension(): string {
@@ -81,6 +78,10 @@ export default class Log {
       return Log.levels[functionOnly]
     }
 
+    if (Log.levels != undefined && Log.levels.globalLevel != undefined && Log.levels.globalLevel.length > 0) {
+      return Log.levels.globalLevel
+    }
+    
     return Log.globalLevel
   }
 
@@ -94,7 +95,7 @@ export default class Log {
 
   cls(clsName: string, mtName?: string): Log {
     if (mtName != undefined) {
-      this.debug(`Entering '${this.clsName}.${mtName}'`)
+      this.debug(`color(bgCyan)Entering '${this.clsName}.${mtName}'`)
     }
     
     let clone = this.clone()
@@ -108,14 +109,14 @@ export default class Log {
   }
 
   fn(fnName: string): Log {
-    this.debug(`Entering '${this.filename} > ${fnName}'`)
+    this.debug(`color(bgCyan)Entering '${this.filename} > ${fnName}'`)
     let clone = this.clone()
     clone.fnName = fnName
     return clone
   }
 
   mt(mtName: string): Log {
-    this.debug(`Entering '${this.clsName}.${mtName}'`)
+    this.debug(`color(bgCyan)Entering '${this.clsName}.${mtName}'`)
     let clone = this.clone()
     clone.mtName = mtName
     return clone
@@ -309,15 +310,6 @@ export function readConfigFile() {
       catch (e) {
         console.log('Could not parse JSON from log level config file: ' + e.message)
         return
-      }
-
-      if (config.globalLevel) {
-        console.log('Setting global level: ' + config.globalLevel)
-        Log.globalLevel = config.globalLevel
-        delete config.globalLevel
-      }
-      else {
-        Log.globalLevel = 'info'
       }
 
       let reworkedConfig: any = {}
