@@ -13,7 +13,6 @@ describe('Log', function() {
       Log.globalLevel = 'error'
 
       let log = new Log('Filename.ts')
-      console.log(Log)
 
       expect(log.level).to.equal('error')
     })
