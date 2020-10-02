@@ -5,26 +5,27 @@ export default class Log {
   static globalLevel: string = 'info'
   static watcher: any
 
-  filePath: string
+  filename: string
   private _clsName?: string
   fnName?: string
   mtName?: string
   private _level?: string
 
-  constructor(__filename: string, level?: string) {
-    this.filePath = __filename
+  constructor(filename: string, level?: string) {
+    this.filename = filename
     this._level = level
 
     Log.logs.push(this)
   }
 
-  get filename(): string {
-    return getFilename(this.filePath)
+  get filenameWithoutExtension(): string {
+    let split = this.filename.split('.')
+    return split.length > 0 ? split[0] : 'filenameWithoutExtension'  
   }
 
   get clsName(): string {
     if (this._clsName == undefined) {
-      return getFilenameWithoutExtension(this.filePath)
+      return this.filenameWithoutExtension
     }
     
     return this._clsName
@@ -193,7 +194,7 @@ export default class Log {
   }
 
   clone(): Log {
-    let clone = new Log(this.filePath)
+    let clone = new Log(this.filename)
     clone._clsName = this._clsName
     clone.fnName = this.fnName
     clone.mtName = this.mtName
@@ -218,25 +219,6 @@ function levelToNumber(level: string|undefined) {
     case 'debug': return 4
     case 'insane': return 5
   }
-}
-
-function getFilename(filePath: string): string {
-  let sep = '/'
-  
-  if (filePath.indexOf('\\') > -1) {
-    sep = '\\'
-  }
-
-  let split = filePath.split(sep)
-
-  return split[split.length - 1]
-}
-
-function getFilenameWithoutExtension(filePath: string): string {
-  let filename = getFilename(filePath)
-
-  let split = filename.split('.')
-  return split.length > 0 ? split[0] : 'filenameWithoutExtension'
 }
 
 export function resolveColors(str: string): string {
