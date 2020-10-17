@@ -152,13 +152,35 @@ export default class Log {
     }
   }
 
-  var(name: string, value: any): void {
+  param(name: string, value: any): void {
     if (typeof window === 'undefined') {
-      this.debug(name + ' =', value)
+      this.debug(resolveColor('dim') + 'parameter: ' + name + ' =', value)
     }
     else {
-      this.debug(name, value)
+      this.debug(resolveColor('dim') + name, value)
     }
+  }
+
+  var(name: string, value: any): void {
+    if (typeof window === 'undefined') {
+      this.debug(resolveColor('dim') + name + ' =', value)
+    }
+    else {
+      this.debug(resolveColor('dim') + name, value)
+    }
+  }
+
+  varInsane(name: string, value: any): void {
+    if (typeof window === 'undefined') {
+      this.insane(resolveColor('dim') + name + ' =', value)
+    }
+    else {
+      this.insane(resolveColor('dim') + name, value)
+    }
+  }
+
+  returning(message: string, value?: any): void {
+    this.debug(resolveColor('bright') + message, value)
   }
 
   createMessageString(color: string, message?: string) {
