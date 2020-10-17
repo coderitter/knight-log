@@ -153,30 +153,15 @@ export default class Log {
   }
 
   param(name: string, value: any): void {
-    if (typeof window === 'undefined') {
-      this.debug(resolveColor('dim') + 'parameter: ' + name + ' =', value)
-    }
-    else {
-      this.debug(resolveColor('dim') + name, value)
-    }
+    this.debug('parameter: ' + resolveColor('dim') + name, value)
   }
 
   var(name: string, value: any): void {
-    if (typeof window === 'undefined') {
-      this.debug(resolveColor('dim') + name + ' =', value)
-    }
-    else {
-      this.debug(resolveColor('dim') + name, value)
-    }
+    this.debug(resolveColor('dim') + name, value)
   }
 
   varInsane(name: string, value: any): void {
-    if (typeof window === 'undefined') {
-      this.insane(resolveColor('dim') + name + ' =', value)
-    }
-    else {
-      this.insane(resolveColor('dim') + name, value)
-    }
+    this.insane(resolveColor('dim') + name, value)
   }
 
   returning(message: string, value?: any): void {
