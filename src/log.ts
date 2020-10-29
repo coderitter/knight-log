@@ -360,6 +360,6 @@ if (typeof window === 'undefined') {
       readConfigFile()
     })
 
-    console.log('Installed file watcher for loglevels.json for class in ' + __dirname)
+    console.log('Installed file watcher for loglevels.json for package ' + __dirname)
   }
 }
