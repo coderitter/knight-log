@@ -1,7 +1,7 @@
 export default class Log {
 
   static levels: { [key: string]: string } = {}
-  static globalLevel: string = 'info'
+  static globalLevel: string = 'admin'
   static watcher: any
 
   filename: string
@@ -95,7 +95,7 @@ export default class Log {
 
   cls(clsName: string, mtName?: string): Log {
     if (mtName != undefined) {
-      this.debug(`${resolveColor('bright')}Entering '${this.clsName}.${mtName}'`)
+      this.user(`${resolveColor('bright')}Entering '${this.clsName}.${mtName}'`)
     }
     
     let clone = this.clone()
@@ -109,7 +109,7 @@ export default class Log {
   }
 
   fn(fnName: string, level?: string): Log {
-    this.debug(`${resolveColor('bright')}Entering '${this.filename} > ${fnName}'`)
+    this.user(`${resolveColor('bright')}Entering '${this.filename} > ${fnName}'`)
     let clone = this.clone()
     clone.fnName = fnName
 
@@ -121,7 +121,7 @@ export default class Log {
   }
 
   mt(mtName: string, level?: string): Log {
-    this.debug(`${resolveColor('bright')}Entering '${this.clsName}.${mtName}'`)
+    this.user(`${resolveColor('bright')}Entering '${this.clsName}.${mtName}'`)
     let clone = this.clone()
     clone.mtName = mtName
 
@@ -144,38 +144,34 @@ export default class Log {
     }
   }
 
-  info(message?: any, ...optionalParams: any[]): void {
-    if (this.levelNumber >= levelToNumber('info')) {
+  admin(message?: any, ...optionalParams: any[]): void {
+    if (this.levelNumber >= levelToNumber('admin')) {
       console.log(this.createMessageString('white', message), ...optionalParams)
     }
   }
 
-  debug(message?: any, ...optionalParams: any[]): void {
-    if (this.levelNumber >= levelToNumber('debug')) {
+  user(message?: any, ...optionalParams: any[]): void {
+    if (this.levelNumber >= levelToNumber('user')) {
       console.log(this.createMessageString('cyan', message), ...optionalParams)
     }
   }
 
-  insane(message?: any, ...optionalParams: any[]): void {
-    if (this.levelNumber >= levelToNumber('insane')) {
+  dev(message?: any, ...optionalParams: any[]): void {
+    if (this.levelNumber >= levelToNumber('dev')) {
       console.log(this.createMessageString('cyan', message), ...optionalParams)
     }
   }
 
   param(name: string, value: any): void {
-    this.debug('parameter: ' + resolveColor('dim') + name, value)
-  }
-
-  var(name: string, value: any): void {
-    this.debug(resolveColor('dim') + name, value)
-  }
-
-  varInsane(name: string, value: any): void {
-    this.insane(resolveColor('dim') + name, value)
+    this.user(resolveColor('dim') + 'parameter: ' + name, value)
   }
 
   returning(message: string, value?: any): void {
-    this.debug(resolveColor('bright') + message, value)
+    this.user(resolveColor('bright') + message, value)
+  }
+
+  var(name: string, value: any): void {
+    this.dev(resolveColor('dim') + name, value)
   }
 
   createMessageString(color: string, message?: string) {
@@ -233,9 +229,9 @@ function levelToNumber(level: string|undefined) {
     default: return 0
     case 'error': return 1
     case 'warn': return 2
-    case 'info': return 3
-    case 'debug': return 4
-    case 'insane': return 5
+    case 'admin': return 3
+    case 'user': return 4
+    case 'dev': return 5
   }
 }
 

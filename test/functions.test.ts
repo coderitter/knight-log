@@ -5,7 +5,7 @@ import Log, { configFileName, readConfigFile, resolveColors } from '../src/log'
 
 describe('functions', function() {
   beforeEach(function() {
-    Log.globalLevel = 'info'
+    Log.globalLevel = 'admin'
     Log.levels = {}
   })
 
@@ -22,7 +22,7 @@ describe('functions', function() {
       let config = {
         'globalLevel': 'silent',
         'a': 'warn',
-        'b': 'debug'
+        'b': 'user'
       }
 
       let configJson = JSON.stringify(config)
@@ -32,7 +32,7 @@ describe('functions', function() {
       
       expect(Log.levels['globalLevel']).to.equal('silent')
       expect(Log.levels['a']).to.equal('warn')
-      expect(Log.levels['b']).to.equal('debug')
+      expect(Log.levels['b']).to.equal('user')
     })
 
     it('should only set values if they evaluate to true', function() {
@@ -61,9 +61,9 @@ describe('functions', function() {
   describe('loglevels.json file watcher', function() {
     it('should re-read the content of loglevels.json', async function() {
       let config = {
-        'globalLevel': 'debug',
-        'c': 'info',
-        'd': 'insane'
+        'globalLevel': 'user',
+        'c': 'admin',
+        'd': 'dev'
       }
 
       let configJson = JSON.stringify(config)
@@ -72,17 +72,17 @@ describe('functions', function() {
 
       await new Promise(resolve => setTimeout(resolve, 100))
 
-      expect(Log.globalLevel).to.equal('info')
-      expect(Log.levels['globalLevel']).to.equal('debug')
+      expect(Log.globalLevel).to.equal('admin')
+      expect(Log.levels['globalLevel']).to.equal('user')
       expect(Log.levels['a']).to.be.undefined
       expect(Log.levels['b']).to.be.undefined
-      expect(Log.levels['c']).to.equal('info')
-      expect(Log.levels['d']).to.equal('insane')
+      expect(Log.levels['c']).to.equal('admin')
+      expect(Log.levels['d']).to.equal('dev')
 
       let origConfig = {
         'globalLevel': 'silent',
         'a': 'warn',
-        'b': 'debug'
+        'b': 'user'
       }
 
       let origConfigJson = JSON.stringify(origConfig)

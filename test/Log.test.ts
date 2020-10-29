@@ -4,7 +4,7 @@ import Log from '../src/log'
 
 describe('Log', function() {
   beforeEach(function() {
-    Log.globalLevel = 'info'
+    Log.globalLevel = 'admin'
     Log.levels = {}
   })
 
@@ -39,12 +39,12 @@ describe('Log', function() {
     it('should use the corresponding level for the explicitly set class name', function() {
       Log.globalLevel = 'error'
       Log.levels['Filename'] = 'warn'
-      Log.levels['Class'] = 'info'
+      Log.levels['Class'] = 'admin'
 
       let log = new Log('Filename.ts')
       log.clsName = 'Class'
 
-      expect(log.level).to.equal('info')
+      expect(log.level).to.equal('admin')
     })
 
     it('should use the corresponding level for filename as class name and the set method', function() {
@@ -60,13 +60,13 @@ describe('Log', function() {
     it('should use the corresponding level for the explicitly set class name and method', function() {
       Log.globalLevel = 'error'
       Log.levels['Filename.method'] = 'warn'
-      Log.levels['Class.method'] = 'info'
+      Log.levels['Class.method'] = 'admin'
 
       let log = new Log('Filename.ts')
       log.mtName = 'method'
       log.clsName = 'Class'
 
-      expect(log.level).to.equal('info')
+      expect(log.level).to.equal('admin')
     })
 
     it('should use the corresponding level for the filename', function() {
@@ -81,51 +81,51 @@ describe('Log', function() {
     it('should use the corresponding level for the filename instead of the function name', function() {
       Log.globalLevel = 'error'
       Log.levels['function'] = 'warn'
-      Log.levels['Filename.ts'] = 'info'
+      Log.levels['Filename.ts'] = 'admin'
 
       let log = new Log('Filename.ts')
       log.fnName = 'function'
 
-      expect(log.level).to.equal('info')
+      expect(log.level).to.equal('admin')
     })
 
     it('should use the corresponding level for the filename instead of class name and method', function() {
       Log.globalLevel = 'error'
       Log.levels['Filename'] = 'warn'
-      Log.levels['Class'] = 'info'
-      Log.levels['Class.method'] = 'debug'
-      Log.levels['Filename.ts'] = 'insane'
+      Log.levels['Class'] = 'admin'
+      Log.levels['Class.method'] = 'user'
+      Log.levels['Filename.ts'] = 'dev'
 
       let log = new Log('Filename.ts')
       log.clsName = 'Class'
       log.mtName = 'method'
 
-      expect(log.level).to.equal('insane')
+      expect(log.level).to.equal('dev')
     })
 
     it('should use the corresponding level for filename and function', function() {
       Log.globalLevel = 'error'
       Log.levels['function'] = 'warn'
-      Log.levels['Filename.ts'] = 'info'
-      Log.levels['Filename.ts > function'] = 'debug'
+      Log.levels['Filename.ts'] = 'admin'
+      Log.levels['Filename.ts > function'] = 'user'
 
       let log = new Log('Filename.ts')
       log.fnName = 'function'
 
-      expect(log.level).to.equal('debug')
+      expect(log.level).to.equal('user')
     })
 
     it('should use the corresponding level for the filename and class', function() {
       Log.globalLevel = 'error'
       Log.levels['Filename'] = 'warn'
-      Log.levels['Class'] = 'info'
-      Log.levels['Filename.ts'] = 'debug'
-      Log.levels['Filename.ts > Class'] = 'insane'
+      Log.levels['Class'] = 'admin'
+      Log.levels['Filename.ts'] = 'user'
+      Log.levels['Filename.ts > Class'] = 'dev'
 
       let log = new Log('Filename.ts')
       log.clsName = 'Class'
 
-      expect(log.level).to.equal('insane')
+      expect(log.level).to.equal('dev')
     })
 
     it('should use the corresponding level for the filename, class and method', function() {
@@ -134,15 +134,15 @@ describe('Log', function() {
       Log.levels['Class'] = 'warn'
       Log.levels['Filename.method'] = 'warn'
       Log.levels['Class.method'] = 'warn'
-      Log.levels['Filename.ts'] = 'info'
-      Log.levels['Filename.ts > Class'] = 'debug'
-      Log.levels['Filename.ts > Class.method'] = 'insane'
+      Log.levels['Filename.ts'] = 'admin'
+      Log.levels['Filename.ts > Class'] = 'user'
+      Log.levels['Filename.ts > Class.method'] = 'dev'
 
       let log = new Log('Filename.ts')
       log.clsName = 'Class'
       log.mtName = 'method'
 
-      expect(log.level).to.equal('insane')
+      expect(log.level).to.equal('dev')
     })
   })
 
