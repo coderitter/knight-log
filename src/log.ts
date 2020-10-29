@@ -108,17 +108,27 @@ export default class Log {
     return clone
   }
 
-  fn(fnName: string): Log {
+  fn(fnName: string, level?: string): Log {
     this.debug(`${resolveColor('bright')}Entering '${this.filename} > ${fnName}'`)
     let clone = this.clone()
     clone.fnName = fnName
+
+    if (level != undefined) {
+      clone.level = level
+    }
+
     return clone
   }
 
-  mt(mtName: string): Log {
+  mt(mtName: string, level?: string): Log {
     this.debug(`${resolveColor('bright')}Entering '${this.clsName}.${mtName}'`)
     let clone = this.clone()
     clone.mtName = mtName
+
+    if (level != undefined) {
+      clone.level = level
+    }
+
     return clone
   }
 
