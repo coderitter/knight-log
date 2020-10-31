@@ -167,8 +167,8 @@ export default class Log {
     this.user(resolveColor('dim') + 'parameter: ' + name, value)
   }
 
-  returning(message: string, value?: any): void {
-    this.user(resolveColor('bright') + message, value)
+  returning(message: string, ...optionalParams: any[]): void {
+    this.user(resolveColor('bright') + message, ...optionalParams)
   }
 
   var(name: string, value: any): void {
