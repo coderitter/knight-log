@@ -9,6 +9,7 @@ export default class Log {
   fnName?: string
   mtName?: string
   private _level?: string
+  location?: string[]
 
   constructor(filename: string, level?: string) {
     this.filename = filename
@@ -175,36 +176,28 @@ export default class Log {
   }
 
   createMessageString(color: string, message?: string) {
+    let messageString = resolveColor(color)
+
     if (this.mtName) {
       if (this._clsName) {
-        return resolveColor(color) + 
-          this.filename + ' > ' + this._clsName + '.' + this.mtName + ' ' +
-          resolveColor('reset') +
-          (message ? message : '') +
-          resolveColor('reset')
+        messageString += this.filename + ' > ' + this._clsName + '.' + this.mtName
       }
       else {
-        return resolveColor(color) + 
-          this.clsName + '.' + this.mtName + ' ' +
-          resolveColor('reset') +
-          (message ? message : '') +
-          resolveColor('reset')
+        messageString += this.clsName + '.' + this.mtName
       }
     }
     else if (this.fnName) {
-      return resolveColor(color) + 
-        this.filename + ' > ' + this.fnName + ' ' +
-        resolveColor('reset') +
-        (message ? message : '') +
-        resolveColor('reset')
+      messageString += this.filename + ' > ' + this.fnName
     }
     else {
-      return resolveColor(color) + 
-        this.filename + ' ' +
-        resolveColor('reset') +
-        (message ? message : '') +
-        resolveColor('reset')
+      messageString += this.filename
     }
+
+    return messageString +
+      resolveColor('reset') +
+      (this.location != undefined ? ' ( ' + this.location.join('') + ' ) ' : ' ') +
+      (message ? message : '') +
+      resolveColor('reset')
   }
 
   clone(): Log {
