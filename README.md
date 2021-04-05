@@ -152,28 +152,13 @@ If you are in NodeJs you can use the file `loglevels.json` to determine the log 
 
 ```json
 {
-  // set the global level
   "globalLevel": "admin",
-
-  // targeting a function name has the lowest priority
   "functionName": "dev",
-
-  // targeting a class name
   "ClassName": "dev",
-
-  // targeting a method of a class
   "ClassName.method": "dev",
-
-  // targeting a file
   "filename.ts": "dev",
-
-  // targeting a function in a particlar file
   "filename.ts > functionName": "dev",
-
-  // targeting a class in a particular file
   "filename.ts > ClassName": "dev",
-
-  // targeting a method of a particular class in a particular file
   "filename.ts > ClassName.method": "dev"
 }
 ```
@@ -194,6 +179,26 @@ let log = new Log('filename.ts', 'dev')
 
 // or set it on the property
 log.level = 'user'
+```
+
+### Prepend additional location information
+
+Sometimes you iterate through a loop processing different database entities. To keep track which database entity is processed at the moment you can prepend additional location information.
+
+There is a property `location` on every logger which is an array that you can fill with arbitrary many strings which will be appended to the already existing location information (filename, class name, ...).
+
+```typescript
+for (let entity of entities) {
+  // the location property is just an array consisting of strings
+  l.location = [ entity.id ]
+  l.user('The next entity is being processed...')
+}
+```
+
+Prints this output.
+
+```shell
+ClassName.method 1 The next entity is being processed...
 ```
 
 ### Use colors in the first message parameter
