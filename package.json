@@ -1,13 +1,12 @@
 {
-  "name": "mega-nice-log",
-  "version": "3.1.0",
-  "description": "A mega nice log",
+  "name": "knight-log",
+  "version": "1.0.0",
+  "description": "A log.",
   "main": "lib/log.js",
   "types": "lib/log.d.ts",
   "files": [
     "lib/**/*"
   ],
-  "dependencies": {},
   "devDependencies": {
     "@types/chai": "^4.2.14",
     "@types/mocha": "^5.2.7",
@@ -18,19 +17,19 @@
     "typescript": "^3.9.7"
   },
   "scripts": {
-    "test": "mocha -r ts-node/register test/**/*.test.ts",
+    "test": "mocha -r ts-node/register \"test/**/*.test.ts\"",
     "build": "rm -rf lib && tsc"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/c0deritter/mega-nice-log.git"
+    "url": "git+https://github.com/c0deritter/knight-log.git"
   },
   "keywords": [
     ""
   ],
   "author": "Coderitter GmbH",
   "bugs": {
-    "url": "https://github.com/c0deritter/mega-nice-log/issues"
+    "url": "https://github.com/c0deritter/knight-log/issues"
   },
-  "homepage": "https://github.com/c0deritter/mega-nice-log#readme"
+  "homepage": "https://github.com/c0deritter/knight-log#readme"
 }
