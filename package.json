@@ -1,7 +1,7 @@
 {
   "name": "knight-log",
   "version": "1.0.0",
-  "description": "A log.",
+  "description": "A log",
   "main": "lib/log.js",
   "types": "lib/log.d.ts",
   "files": [
