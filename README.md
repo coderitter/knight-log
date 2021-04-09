@@ -10,12 +10,12 @@ A log library. Works in Node and in browsers.
 
 ### Initialize the logger
 
-Instantiate a new logger per file. The constructor takes the filename as parameter. You should start with this logging object in your file and use it to derive loggers for classes, methods and functions. The given location is prepended to every log message and used to be able to set log levels for certain locations only.
+Instantiate a new logger per file. The constructor takes the filename as parameter. Start with this logging object in your file and use it to derive loggers for classes, methods and functions. The given location is prepended to every log message and used to be able to set log levels for certain locations only.
 
 ```typescript
 import Log from 'knight-log'
 
-// Define the base logger for the file
+// Instantiate a logger for the file
 let log = new Log('filename.ts')
 
 function functionName() {
@@ -34,19 +34,19 @@ class ClassName {
   }
 
   methodName2() {
-    // Derive a logger for a method using the base logger
+    // Derive a logger for a method using the file logger
     let l = log.cls('ClassName', 'methodName2')
   }
 }
 ```
 
-If your filename equals the class name but without the extension you can leave out the class logger.
+If your filename equals the class name but without the extension you can directly derive a method logger from the file logger.
 
 ```typescript
 import Log from 'knight-log'
 
 // Define the base logger for the file
-let log = new Log('filename.ts')
+let log = new Log('ClassName.ts')
 
 class ClassName {
 
@@ -198,7 +198,7 @@ for (let entity of entities) {
 Prints this output.
 
 ```shell
-ClassName.method 1 The next entity is being processed...
+ClassName.method ( 1 ) The next entity is being processed...
 ```
 
 ### Use colors in the first message parameter
