@@ -283,7 +283,9 @@ function resolveColor(colorName: string): string {
 
 export function configFileName(): string {
   if (typeof window === 'undefined') {
-    let path = require('path')
+    // requiring path with the help of a string variable will confuse webpack to not throw an error
+    let pathName = 'path'
+    let path = require(pathName)
     return process.cwd() + path.sep + 'loglevels.json'
   }
 
@@ -292,7 +294,7 @@ export function configFileName(): string {
 
 export function readConfigFile() {
   if (typeof window === 'undefined') {
-    // requiring fs with the help of a  string variable will confuse webpack to not throw this error
+    // requiring fs with the help of a string variable will confuse webpack to not throw this error
     // Module not found: Error: Can't resolve 'fs' in
     // it will result in a critical warning though: Critical dependency: the request of a dependency is an expression
     let fsName = 'fs'
