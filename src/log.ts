@@ -96,7 +96,7 @@ export default class Log {
 
   cls(clsName: string, mtName?: string): Log {
     if (mtName != undefined) {
-      this.user(`${resolveColor('bright')}Entering '${this.clsName}.${mtName}'`)
+      this.libUser(`${resolveColor('bright')}Entering '${this.clsName}.${mtName}'`)
     }
     
     let clone = this.clone()
@@ -110,7 +110,7 @@ export default class Log {
   }
 
   fn(fnName: string, level?: string): Log {
-    this.user(`${resolveColor('bright')}Entering '${this.filename} > ${fnName}'`)
+    this.libUser(`${resolveColor('bright')}Entering '${this.filename} > ${fnName}'`)
     let clone = this.clone()
     clone.fnName = fnName
 
@@ -122,7 +122,7 @@ export default class Log {
   }
 
   mt(mtName: string, level?: string): Log {
-    this.user(`${resolveColor('bright')}Entering '${this.clsName}.${mtName}'`)
+    this.libUser(`${resolveColor('bright')}Entering '${this.clsName}.${mtName}'`)
     let clone = this.clone()
     clone.mtName = mtName
 
@@ -151,8 +151,8 @@ export default class Log {
     }
   }
 
-  user(message?: any, ...optionalParams: any[]): void {
-    if (this.levelNumber >= levelToNumber('user')) {
+  libUser(message?: any, ...optionalParams: any[]): void {
+    if (this.levelNumber >= levelToNumber('libuser')) {
       console.log(this.createMessageString('cyan', message), ...optionalParams)
     }
   }
@@ -164,11 +164,11 @@ export default class Log {
   }
 
   param(name: string, value: any): void {
-    this.user(resolveColor('dim') + 'parameter: ' + name, value)
+    this.libUser(resolveColor('dim') + 'parameter: ' + name, value)
   }
 
   returning(message: string, ...optionalParams: any[]): void {
-    this.user(resolveColor('bright') + message, ...optionalParams)
+    this.libUser(resolveColor('bright') + message, ...optionalParams)
   }
 
   var(name: string, value: any): void {
@@ -223,7 +223,7 @@ function levelToNumber(level: string|undefined) {
     case 'error': return 1
     case 'warn': return 2
     case 'admin': return 3
-    case 'user': return 4
+    case 'libuser': return 4
     case 'dev': return 5
   }
 }
