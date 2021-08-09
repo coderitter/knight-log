@@ -135,31 +135,31 @@ export default class Log {
 
   error(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('error')) {
-      console.log(this.createMessageString('red', message), ...optionalParams)
+      console.log(this.createMessage('red', message, optionalParams?.length), ...optionalParams)
     }
   }
 
   warn(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('warn')) {
-      console.log(this.createMessageString('yellow', message), ...optionalParams)
+      console.log(this.createMessage('yellow', message, optionalParams?.length), ...optionalParams)
     }
   }
 
   admin(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('admin')) {
-      console.log(this.createMessageString('white', message), ...optionalParams)
+      console.log(this.createMessage('white', message, optionalParams?.length), ...optionalParams)
     }
   }
 
   libUser(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('libuser')) {
-      console.log(this.createMessageString('cyan', message), ...optionalParams)
+      console.log(this.createMessage('cyan', message, optionalParams?.length), ...optionalParams)
     }
   }
 
   dev(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('dev')) {
-      console.log(this.createMessageString('cyan', message), ...optionalParams)
+      console.log(this.createMessage('cyan', message, optionalParams?.length), ...optionalParams)
     }
   }
 
@@ -175,33 +175,38 @@ export default class Log {
     this.libUser(resolveColor('bright') + message, ...optionalParams)
   }
 
-  var(name: string, value: any): void {
-    this.dev(resolveColor('dim') + name, value)
-  }
-
-  createMessageString(color: string, message?: string) {
-    let messageString = resolveColor(color)
+  createPrefix(color: string): string {
+    let prefix = resolveColor(color)
 
     if (this.mtName) {
       if (this._clsName) {
-        messageString += this.filename + ' > ' + this._clsName + '.' + this.mtName
+        prefix += this.filename + ' > ' + this._clsName + '.' + this.mtName
       }
       else {
-        messageString += this.clsName + '.' + this.mtName
+        prefix += this.clsName + '.' + this.mtName
       }
     }
     else if (this.fnName) {
-      messageString += this.filename + ' > ' + this.fnName
+      prefix += this.filename + ' > ' + this.fnName
     }
     else {
-      messageString += this.filename
+      prefix += this.filename
     }
 
-    return messageString +
+    return prefix +
       resolveColor('reset') +
-      (this.location != undefined ? ' ( ' + this.location.join('') + ' ) ' : ' ') +
-      (message ? message : '') +
-      resolveColor('reset')
+      (this.location != undefined ? ' ( ' + this.location.join('') + ' ) ' : ' ')
+  }
+
+  createMessage(color: string, message?: string, optionalParamCount?: number) {
+    if (! message) {
+      message = ''
+    }
+    else if (optionalParamCount) {
+      message = resolveColor('dim') + message
+    }
+
+    return this.createPrefix(color) + message + resolveColor('reset')
   }
 
   clone(): Log {
