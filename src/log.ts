@@ -167,6 +167,10 @@ export default class Log {
     this.libUser(resolveColor('dim') + 'parameter: ' + name, value)
   }
 
+  calling(message: string, ...optionalParams: any[]): void {
+    this.libUser(resolveColor('bright') + message, ...optionalParams)
+  }
+
   returning(message: string, ...optionalParams: any[]): void {
     this.libUser(resolveColor('bright') + message, ...optionalParams)
   }
