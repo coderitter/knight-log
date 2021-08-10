@@ -7,6 +7,10 @@
   "files": [
     "lib/**/*"
   ],
+  "browser": {
+    "fs": false,
+    "path": false
+  },
   "devDependencies": {
     "@types/chai": "^4.2.14",
     "@types/mocha": "^5.2.7",
