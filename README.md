@@ -59,7 +59,7 @@ class ClassName {
 
 ### Print log messages
 
-There are five log levels. The commonly known log level `info` is renamed to `admin`, `debug` to `user` and `insane` to `dev`.
+There are five log levels. The commonly known log level `info` is renamed to `admin`, `debug` to `libuser` and `insane` to `dev`.
 
 ```typescript
 // For errors
@@ -72,7 +72,7 @@ log.warning('The behaviour of the code will change!')
 log.admin('Connected to database') 
 
 // Display information the user of your code needs to understand assuming your code is bug free.
-log.user('Month is greater than march. Picking 3 day period.')
+log.libUser('Month is greater than march. Picking 3 day period.')
 
 // Display information a developer of your code needs to find bugs and improve on it.
 log.dev('Database result looks like this', result)
@@ -104,7 +104,7 @@ The prepended location information is also color coded depending on the log leve
 - `error`: red
 - `warning`: yellow
 - `admin`: white
-- `user`: cyan
+- `libuser`: cyan
 - `dev`: cyan
 
 ### Set the global log level
@@ -112,7 +112,7 @@ The prepended location information is also color coded depending on the log leve
 The global log level is the fallback level which is always used if there are no other definitions.
 
 ```typescript
-log.globalLevel = 'error' // 'warning', 'admin', 'user', 'dev'
+log.globalLevel = 'error' // 'warning', 'admin', 'libuser', 'dev'
 ```
 
 Like in any other logging library `error` will only display errors while `warning` will display warnings and errors and so on.
@@ -178,7 +178,7 @@ You can also set the log level directly on the logger but which is discouraged b
 let log = new Log('filename.ts', 'dev')
 
 // or set it on the property
-log.level = 'user'
+log.level = 'libuser'
 ```
 
 ### Prepend additional location information
@@ -191,7 +191,7 @@ There is a property `location` on every logger which is an array that you can fi
 for (let entity of entities) {
   // the location property is just an array consisting of strings
   l.location = [ entity.id ]
-  l.user('The next entity is being processed...')
+  l.libUser('The next entity is being processed...')
 }
 ```
 
