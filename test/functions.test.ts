@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import * as fs from 'fs'
 import 'mocha'
-import Log, { configFileName, readConfigFile, resolveColors } from '../src/log'
+import { configFileName, Log, readConfigFile, resolveColors } from '../src/log'
 
 describe('functions', function() {
   beforeEach(function() {

@@ -1,4 +1,4 @@
-export default class Log {
+export class Log {
 
   static levels: { [key: string]: string } = {}
   static globalLevel: string = 'admin'

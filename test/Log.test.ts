@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import 'mocha'
-import Log from '../src/log'
+import { Log } from '../src/log'
 
 describe('Log', function() {
   beforeEach(function() {
