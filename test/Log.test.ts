@@ -177,7 +177,8 @@ describe('Log', function() {
 
     it('should add the location', function() {
       let log = new Log('Filename.ts')
-      log.location = [ 'Object1=a', '; Object2=b' ]
+      log.location = [ 'Object1=a', 'Object2=b' ]
+      log.locationSeparator = '; '
       let str = log.createMessage('cyan', 'message')
       expect(str).to.equal('\x1b[36mFilename.ts\x1b[0m ( Object1=a; Object2=b ) message\x1b[0m')
     })

@@ -184,7 +184,9 @@ There is a property `location` on every logger which is an array that you can fi
 ```typescript
 for (let entity of entities) {
   // the location property is just an array consisting of strings
-  l.location = [ entity.id ]
+  l.location = [ 'id', entity.id ]
+  // you can define a separator which is used when the array is joined into a string
+  l.locationSeparator = ': '
   l.lib('The next entity is being processed...')
 }
 ```
@@ -192,7 +194,7 @@ for (let entity of entities) {
 Prints this output.
 
 ```shell
-ClassName.method ( 1 ) The next entity is being processed...
+ClassName.method ( id: 1  ) The next entity is being processed...
 ```
 
 ### Use colors in the first message parameter

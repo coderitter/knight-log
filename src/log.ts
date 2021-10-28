@@ -10,6 +10,7 @@ export class Log {
   mtName?: string
   private _level?: string
   location?: string[]
+  locationSeparator = ' '
 
   constructor(filename: string, level?: string) {
     this.filename = filename
@@ -199,7 +200,7 @@ export class Log {
 
     return prefix +
       resolveColor('reset') +
-      (this.location != undefined && this.location.length > 0 ? ' ( ' + this.location.join(' ') + ' ) ' : ' ')
+      (this.location != undefined && this.location.length > 0 ? ' ( ' + this.location.join(this.locationSeparator) + ' ) ' : ' ')
   }
 
   createMessage(color: string, message?: string, optionalParamCount?: number) {
