@@ -98,7 +98,7 @@ export class Log {
     let clone = this.clone()
 
     if (mtName != undefined) {
-      clone.mtName = mtName      
+      clone.mtName = mtName
     }
 
     if (mtName != undefined) {
@@ -199,7 +199,7 @@ export class Log {
 
     return prefix +
       resolveColor('reset') +
-      (this.location != undefined ? ' ( ' + this.location.join('') + ' ) ' : ' ')
+      (this.location != undefined && this.location.length > 0 ? ' ( ' + this.location.join('') + ' ) ' : ' ')
   }
 
   createMessage(color: string, message?: string, optionalParamCount?: number) {
