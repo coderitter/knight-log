@@ -199,7 +199,7 @@ export class Log {
 
     return prefix +
       resolveColor('reset') +
-      (this.location != undefined && this.location.length > 0 ? ' ( ' + this.location.join('') + ' ) ' : ' ')
+      (this.location != undefined && this.location.length > 0 ? ' ( ' + this.location.join(' ') + ' ) ' : ' ')
   }
 
   createMessage(color: string, message?: string, optionalParamCount?: number) {
