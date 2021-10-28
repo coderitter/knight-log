@@ -102,7 +102,7 @@ export class Log {
     }
 
     if (mtName != undefined) {
-      clone.libUser(`${resolveColor('bright')}Entering '${mtName}'`)
+      clone.lib(`${resolveColor('bright')}Entering '${mtName}'`)
     }
 
     clone.clsName = clsName
@@ -118,7 +118,7 @@ export class Log {
       clone.level = level
     }
 
-    clone.libUser(`${resolveColor('bright')}Entering '${fnName}'`)
+    clone.lib(`${resolveColor('bright')}Entering '${fnName}'`)
     clone.fnName = fnName
 
     return clone
@@ -131,7 +131,7 @@ export class Log {
       clone.level = level
     }
 
-    clone.libUser(`${resolveColor('bright')}Entering '${mtName}'`)
+    clone.lib(`${resolveColor('bright')}Entering '${mtName}'`)
     clone.mtName = mtName
 
     return clone
@@ -155,8 +155,8 @@ export class Log {
     }
   }
 
-  libUser(message?: any, ...optionalParams: any[]): void {
-    if (this.levelNumber >= levelToNumber('libuser')) {
+  lib(message?: any, ...optionalParams: any[]): void {
+    if (this.levelNumber >= levelToNumber('lib')) {
       console.log(this.createMessage('cyan', message, optionalParams?.length), ...optionalParams)
     }
   }
@@ -168,15 +168,15 @@ export class Log {
   }
 
   param(name: string, value: any): void {
-    this.libUser(resolveColor('dim') + 'parameter: ' + name, value)
+    this.lib(resolveColor('dim') + 'parameter: ' + name, value)
   }
 
   calling(message: string, ...optionalParams: any[]): void {
-    this.libUser(resolveColor('bright') + message, ...optionalParams)
+    this.lib(resolveColor('bright') + message, ...optionalParams)
   }
 
   returning(message: string, ...optionalParams: any[]): void {
-    this.libUser(resolveColor('bright') + message, ...optionalParams)
+    this.lib(resolveColor('bright') + message, ...optionalParams)
   }
 
   createPrefix(color: string): string {
@@ -236,7 +236,7 @@ function levelToNumber(level: string|undefined) {
     case 'error': return 1
     case 'warn': return 2
     case 'admin': return 3
-    case 'libuser': return 4
+    case 'lib': return 4
     case 'dev': return 5
   }
 }

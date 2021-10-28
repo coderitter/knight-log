@@ -93,7 +93,7 @@ describe('Log', function() {
       Log.globalLevel = 'error'
       Log.levels['Filename'] = 'warn'
       Log.levels['Class'] = 'admin'
-      Log.levels['Class.method'] = 'libuser'
+      Log.levels['Class.method'] = 'lib'
       Log.levels['Filename.ts'] = 'dev'
 
       let log = new Log('Filename.ts')
@@ -107,19 +107,19 @@ describe('Log', function() {
       Log.globalLevel = 'error'
       Log.levels['function'] = 'warn'
       Log.levels['Filename.ts'] = 'admin'
-      Log.levels['Filename.ts > function'] = 'libuser'
+      Log.levels['Filename.ts > function'] = 'lib'
 
       let log = new Log('Filename.ts')
       log.fnName = 'function'
 
-      expect(log.level).to.equal('libuser')
+      expect(log.level).to.equal('lib')
     })
 
     it('should use the corresponding level for the filename and class', function() {
       Log.globalLevel = 'error'
       Log.levels['Filename'] = 'warn'
       Log.levels['Class'] = 'admin'
-      Log.levels['Filename.ts'] = 'libuser'
+      Log.levels['Filename.ts'] = 'lib'
       Log.levels['Filename.ts > Class'] = 'dev'
 
       let log = new Log('Filename.ts')
@@ -135,7 +135,7 @@ describe('Log', function() {
       Log.levels['Filename.method'] = 'warn'
       Log.levels['Class.method'] = 'warn'
       Log.levels['Filename.ts'] = 'admin'
-      Log.levels['Filename.ts > Class'] = 'libuser'
+      Log.levels['Filename.ts > Class'] = 'lib'
       Log.levels['Filename.ts > Class.method'] = 'dev'
 
       let log = new Log('Filename.ts')

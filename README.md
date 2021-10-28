@@ -10,32 +10,32 @@ A log library. Works in Node and in browsers.
 
 ### Initialize the logger
 
-Instantiate a new logger per file. The constructor takes the filename as parameter. Start with this logging object in your file and use it to derive loggers for classes, methods and functions. The given location is prepended to every log message and used to be able to set log levels for certain locations only.
+Instantiate a new logger per file. The constructor takes the filename as parameter. Start with this logging object in your file and use it to derive loggers for classes, methods and functions from it. The given location is prepended to every log message and used to be able to set log levels for certain locations only.
 
 ```typescript
 import Log from 'knight-log'
 
-// Instantiate a logger for the file
+// Create a logger for your file
 let log = new Log('filename.ts')
 
 function functionName() {
-  // Derive a logger for a function
+  // Create a logger for a function using the file-related logger
   let l = log.fn('functionName')
 }
 
-// Derive a logger for a class
+// Create a logger for a class using the file-related logger
 let classNameLogger = log.cls('ClassName')
 
 class ClassName {
 
-  methodName1() {
-    // Derive a logger for a method
-    let l = classNameLogger.mt('methodName1')
+  method1() {
+    // Create a logger for a method using the class-related logger
+    let l = classNameLogger.mt('method1')
   }
 
-  methodName2() {
-    // Derive a logger for a method using the file logger
-    let l = log.cls('ClassName', 'methodName2')
+  method2() {
+    // Create a logger for a method using the file-related logger
+    let l = log.cls('ClassName', 'method2')
   }
 }
 ```
@@ -45,13 +45,13 @@ If your filename equals the class name but without the extension you can directl
 ```typescript
 import Log from 'knight-log'
 
-// Define the base logger for the file
+// Create your file-related logger
 let log = new Log('ClassName.ts')
 
 class ClassName {
 
   methodName() {
-    // Derive a logger for a method
+    // Create a logger for a method using the file-related logger
     let l = log.mt('methodName')
   }
 }
@@ -59,22 +59,19 @@ class ClassName {
 
 ### Print log messages
 
-There are five log levels. The commonly known log level `info` is renamed to `admin`, `debug` to `libuser` and `insane` to `dev`.
+There are five log levels. Some of them were renamed to better fit their intended usage style.
+
+- `error`: Print errors
+- `warn`: Print warnings
+- `admin` also known as `info`: Give information to an admin
+- `lib` also known as `debug`: Give information to a developer who uses your code but who does not want to change it
+- `dev` also known as `insane`: Give information to the developer who wants to change your code
 
 ```typescript
-// For errors
 log.error('An error occurred!')
-
-// For warnings
-log.warning('The behaviour of the code will change!') 
-
-// Display information the admin needs to see to make decisions.
+log.warn('The behaviour of the code will change!') 
 log.admin('Connected to database') 
-
-// Display information the user of your code needs to understand assuming your code is bug free.
-log.libUser('Month is greater than march. Picking 3 day period.')
-
-// Display information a developer of your code needs to find bugs and improve on it.
+log.lib('Month is greater than march. Picking 3 day period.')
 log.dev('Database result looks like this', result)
 
 /* Additional methods which alter the colors of the message (works only in NodeJs) */
@@ -84,9 +81,6 @@ log.param('parameterName', parameterValue)
 
 // Useful to highlight the end of a function (log level equals "user")
 log.returning('Returning...', returnValue) 
-
-// Useful to highlight variable values (log level equals "dev")
-log.var('variableName', variableValue)
 ```
 
 The location given to the logger (filename, class name, ...) is prepended on every log message. Here are some examples.
@@ -104,15 +98,15 @@ The prepended location information is also color coded depending on the log leve
 - `error`: red
 - `warning`: yellow
 - `admin`: white
-- `libuser`: cyan
+- `lib`: cyan
 - `dev`: cyan
 
 ### Set the global log level
 
-The global log level is the fallback level which is always used if there are no other definitions.
+The global log level is the default which is used if there is no other definition.
 
 ```typescript
-log.globalLevel = 'error' // 'warning', 'admin', 'libuser', 'dev'
+log.globalLevel = 'error' // 'warning', 'admin', 'lib', 'dev'
 ```
 
 Like in any other logging library `error` will only display errors while `warning` will display warnings and errors and so on.
@@ -178,7 +172,7 @@ You can also set the log level directly on the logger but which is discouraged b
 let log = new Log('filename.ts', 'dev')
 
 // or set it on the property
-log.level = 'libuser'
+log.level = 'lib'
 ```
 
 ### Prepend additional location information
@@ -191,7 +185,7 @@ There is a property `location` on every logger which is an array that you can fi
 for (let entity of entities) {
   // the location property is just an array consisting of strings
   l.location = [ entity.id ]
-  l.libUser('The next entity is being processed...')
+  l.lib('The next entity is being processed...')
 }
 ```
 
