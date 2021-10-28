@@ -224,6 +224,8 @@ export class Log {
     clone.fnName = this.fnName
     clone.mtName = this.mtName
     clone._level = this._level
+    clone.location = this.location?.slice()
+    clone.locationSeparator = this.locationSeparator
     return clone
   }
 
