@@ -94,41 +94,45 @@ export class Log {
     return levelToNumber(this.level)
   }
 
-  cls(clsName: string, mtName?: string): Log {
-    if (mtName != undefined) {
-      this.libUser(`${resolveColor('bright')}Entering '${this.clsName}.${mtName}'`)
-    }
-    
+  cls(clsName: string, mtName?: string): Log {    
     let clone = this.clone()
-    clone.clsName = clsName
 
     if (mtName != undefined) {
       clone.mtName = mtName      
     }
 
+    if (mtName != undefined) {
+      clone.libUser(`${resolveColor('bright')}Entering '${mtName}'`)
+    }
+
+    clone.clsName = clsName
+
+
     return clone
   }
 
   fn(fnName: string, level?: string): Log {
-    this.libUser(`${resolveColor('bright')}Entering '${this.filename} > ${fnName}'`)
     let clone = this.clone()
-    clone.fnName = fnName
 
     if (level != undefined) {
       clone.level = level
     }
+
+    clone.libUser(`${resolveColor('bright')}Entering '${fnName}'`)
+    clone.fnName = fnName
 
     return clone
   }
 
   mt(mtName: string, level?: string): Log {
-    this.libUser(`${resolveColor('bright')}Entering '${this.clsName}.${mtName}'`)
     let clone = this.clone()
-    clone.mtName = mtName
 
     if (level != undefined) {
       clone.level = level
     }
+
+    clone.libUser(`${resolveColor('bright')}Entering '${mtName}'`)
+    clone.mtName = mtName
 
     return clone
   }
