@@ -156,10 +156,18 @@ export class Log {
     }
   }
 
+  adminBright(message?: any, ...optionalParams: any[]): void {
+    this.admin(resolveColor('bright') + message, ...optionalParams)
+  }
+
   lib(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('lib')) {
       console.log(this.createMessage('cyan', message, optionalParams?.length), ...optionalParams)
     }
+  }
+
+  libBright(message?: any, ...optionalParams: any[]): void {
+    this.lib(resolveColor('bright') + message, ...optionalParams)
   }
 
   dev(message?: any, ...optionalParams: any[]): void {
@@ -168,16 +176,12 @@ export class Log {
     }
   }
 
+  devBright(message?: any, ...optionalParams: any[]): void {
+    this.dev(resolveColor('bright') + message, ...optionalParams)
+  }
+
   param(name: string, value: any): void {
     this.lib(resolveColor('dim') + 'parameter: ' + name, value)
-  }
-
-  calling(message: string, ...optionalParams: any[]): void {
-    this.lib(resolveColor('bright') + message, ...optionalParams)
-  }
-
-  returning(message: string, ...optionalParams: any[]): void {
-    this.lib(resolveColor('bright') + message, ...optionalParams)
   }
 
   createPrefix(color: string): string {
