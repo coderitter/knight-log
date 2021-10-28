@@ -67,20 +67,23 @@ There are five log levels. Some of them were renamed to better fit their intende
 - `lib` also known as `debug`: Give information to a developer who uses your code but who does not want to change it
 - `dev` also known as `insane`: Give information to the developer who wants to change your code
 
+Here you can see the corresponding methods. For the log levels `admin`, `lib` and `dev` there are also bright variants to let a message appear brighter. This works only in NodeJs, not in the browsers.
+
 ```typescript
-log.error('An error occurred!')
+log.error('An error occurred!', error)
 log.warn('The behaviour of the code will change!') 
-log.admin('Connected to database') 
+
+log.admin('Connecting to database...')
+log.adminBright('Success connecting to database')
+
 log.lib('Month is greater than march. Picking 3 day period.')
+log.libBright('Going into recursion...')
+
 log.dev('Database result looks like this', result)
+log.devBright('This is important')
 
-/* Additional methods which alter the colors of the message (works only in NodeJs) */
-
-// Useful to highlight parameters (log level equals "user")
+// Useful to highlight parameters (log level equals "lib")
 log.param('parameterName', parameterValue)
-
-// Useful to highlight the end of a function (log level equals "user")
-log.returning('Returning...', returnValue) 
 ```
 
 The location given to the logger (filename, class name, ...) is prepended on every log message. Here are some examples.
@@ -93,7 +96,7 @@ ClassName.method Month is greater than march. Picking 3 day period.
 Filename.ts ClassName.method Database result looks like this {...}
 ```
 
-The prepended location information is also color coded depending on the log level.
+The prepended location information is also color coded depending on the log level. This works only in NodeJs, not in the browsers.
 
 - `error`: red
 - `warning`: yellow
