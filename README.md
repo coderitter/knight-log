@@ -24,13 +24,13 @@ function functionName() {
 }
 
 // Create a logger for a class using the file-related logger
-let classNameLogger = log.cls('ClassName')
+let clsLog = log.cls('ClassName')
 
 class ClassName {
 
   method1() {
     // Create a logger for a method using the class-related logger
-    let l = classNameLogger.mt('method1')
+    let l = clsLog.mt('method1')
   }
 
   method2() {
@@ -50,9 +50,9 @@ let log = new Log('ClassName.ts')
 
 class ClassName {
 
-  methodName() {
+  method() {
     // Create a logger for a method using the file-related logger
-    let l = log.mt('methodName')
+    let l = log.mt('method')
   }
 }
 ```
@@ -65,7 +65,7 @@ There are five log levels. Some of them were renamed to better fit their intende
 - `warn`: Print warnings
 - `admin` also known as `info`: Give information to an admin
 - `lib` also known as `debug`: Give information to a developer who uses your code but who does not want to change it
-- `dev` also known as `insane`: Give information to the developer who wants to change your code
+- `dev` also known as `insane`: Give information to a developer who wants to change your code
 
 Here you can see the corresponding methods. For the log levels `admin`, `lib` and `dev` there are also bright variants to let a message appear brighter. This works only in NodeJs, not in the browsers.
 
@@ -197,7 +197,7 @@ for (let entity of entities) {
 Prints this output.
 
 ```shell
-ClassName.method ( id: 1  ) The next entity is being processed...
+ClassName.method ( id: 1 ) The next entity is being processed...
 ```
 
 ### Use colors in the first message parameter
