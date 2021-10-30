@@ -103,7 +103,7 @@ export class Log {
     }
 
     if (mtName != undefined) {
-      clone.lib(`${resolveColor('bright')}Entering '${mtName}'`)
+      clone.lib(`${logColor(LogColor.bright)}Entering '${mtName}'`)
     }
 
     clone.clsName = clsName
@@ -119,7 +119,7 @@ export class Log {
       clone.level = level
     }
 
-    clone.lib(`${resolveColor('bright')}Entering '${fnName}'`)
+    clone.lib(`${logColor(LogColor.bright)}Entering '${fnName}'`)
     clone.fnName = fnName
 
     return clone
@@ -132,7 +132,7 @@ export class Log {
       clone.level = level
     }
 
-    clone.lib(`${resolveColor('bright')}Entering '${mtName}'`)
+    clone.lib(`${logColor(LogColor.bright)}Entering '${mtName}'`)
     clone.mtName = mtName
 
     return clone
@@ -140,64 +140,64 @@ export class Log {
 
   error(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('error')) {
-      console.log(this.createMessage('red', message, optionalParams?.length), ...optionalParams)
+      console.log(this.createMessage(LogColor.red, message, optionalParams?.length), ...optionalParams)
     }
   }
 
   warn(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('warn')) {
-      console.log(this.createMessage('yellow', message, optionalParams?.length), ...optionalParams)
+      console.log(this.createMessage(LogColor.yellow, message, optionalParams?.length), ...optionalParams)
     }
   }
 
   admin(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('admin')) {
-      console.log(this.createMessage('white', message, optionalParams?.length), ...optionalParams)
+      console.log(this.createMessage(LogColor.white, message, optionalParams?.length), ...optionalParams)
     }
   }
 
-  adminBright(message?: any, ...optionalParams: any[]): void {
-    this.admin(resolveColor('bright') + message, ...optionalParams)
+  adminColor(color: LogColor, message?: any, ...optionalParams: any[]): void {
+    this.admin(logColor(color) + message, ...optionalParams)
   }
 
   lib(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('lib')) {
-      console.log(this.createMessage('cyan', message, optionalParams?.length), ...optionalParams)
+      console.log(this.createMessage(LogColor.cyan, message, optionalParams?.length), ...optionalParams)
     }
   }
 
-  libBright(message?: any, ...optionalParams: any[]): void {
-    this.lib(resolveColor('bright') + message, ...optionalParams)
+  libColor(color: LogColor, message?: any, ...optionalParams: any[]): void {
+    this.lib(logColor(color) + message, ...optionalParams)
   }
 
   dev(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('dev')) {
-      console.log(this.createMessage('cyan', message, optionalParams?.length), ...optionalParams)
+      console.log(this.createMessage(LogColor.cyan, message, optionalParams?.length), ...optionalParams)
     }
   }
 
-  devBright(message?: any, ...optionalParams: any[]): void {
-    this.dev(resolveColor('bright') + message, ...optionalParams)
+  devColor(color: LogColor, message?: any, ...optionalParams: any[]): void {
+    this.dev(logColor(color) + message, ...optionalParams)
   }
 
   param(name: string, value: any): void {
-    this.lib(resolveColor('dim') + 'parameter: ' + name, value)
+    this.lib(logColor(LogColor.dim) + 'parameter: ' + name, value)
   }
 
   calling(message: string, ...optionalParams: any[]): void {
-    this.lib(resolveColor('bright') + message, ...optionalParams)
+    this.lib(logColor(LogColor.bright) + message, ...optionalParams)
   }
 
   called(message: string, ...optionalParams: any[]): void {
-    this.lib(resolveColor('bright') + message, ...optionalParams)
+    this.lib(logColor(LogColor.bright) + message, ...optionalParams)
   }
 
   returning(message: string, ...optionalParams: any[]): void {
-    this.lib(resolveColor('bright') + message, ...optionalParams)
+    this.lib(logColor(LogColor.bright) + message, ...optionalParams)
   }
 
-  createLocation(color: string): string {
-    let prefix = resolveColor(color)
+  createLocation(color: LogColor): string {
+    let prefix = logColor(color)
 
     if (this.mtName) {
       if (this._clsName) {
@@ -215,29 +215,31 @@ export class Log {
     }
 
     return prefix +
-      resolveColor('reset') +
+      logColor(LogColor.reset) +
       (this.location != undefined && this.location.length > 0 ? ' ( ' + this.location.join(this.locationSeparator) + ' ) ' : ' ')
   }
 
-  createMessage(locationColor: string, message?: string, optionalParamCount?: number) {
+  createMessage(locationColor: LogColor, message?: string, optionalParamCount?: number) {
     if (! message) {
       message = ''
     }
     else if (optionalParamCount) {
-      message = resolveColor('dim') + message
+      message = logColor(LogColor.dim) + message
     }
 
-    return this.createLocation(locationColor) + message + resolveColor('reset')
+    return this.createLocation(locationColor) + message + logColor(LogColor.reset)
   }
 
   clone(): Log {
     let clone = new Log(this.filename)
+
     clone._clsName = this._clsName
     clone.fnName = this.fnName
     clone.mtName = this.mtName
     clone._level = this._level
     clone.location = this.location?.slice()
     clone.locationSeparator = this.locationSeparator
+
     return clone
   }
 
@@ -260,50 +262,62 @@ function levelToNumber(level: string|undefined) {
   }
 }
 
-export function resolveColors(str: string): string {
-  let regex = /color\((\w+)\)/
-  let match = regex.exec(str)
-
-  while (match) {
-    let color = match[0]
-    let colorName = match[1]
-    let colorCode = resolveColor(colorName)
-    str = str.replace(color, colorCode)
-    match = regex.exec(str)
-  }
-
-  return str
+export enum LogColor {
+  reset = 'reset',
+  bright = 'bright',
+  dim = 'dim',
+  underscore = 'underscore',
+  blink = 'blink',
+  reverse = 'reverse',
+  hidden = 'hidden',
+  black = 'black',
+  red = 'red',
+  green = 'green',
+  yellow = 'yellow',
+  blue = 'blue',
+  magenta = 'magenta',
+  cyan = 'cyan',
+  white = 'white',
+  bgBlack = 'bgBlack',
+  bgRed = 'bgRed',
+  bgGreen = 'bgGreen',
+  bgYellow = 'bgYellow',
+  bgBlue = 'bgBlue',
+  bgMagenta = 'bgMagenta',
+  bgCyan = 'bgCyan',
+  bgWhite = 'bgWhite'
 }
 
-function resolveColor(colorName: string): string {
+export function logColor(color: LogColor): string {
   if (typeof window === 'undefined') {
     // running in Node
-    switch (colorName) {
-      case 'reset': return '\x1b[0m'
-      case 'bright': return '\x1b[1m'
-      case 'dim': return '\x1b[2m'
-      case 'underscore': return '\x1b[4m'
-      case 'blink': return '\x1b[5m'
-      case 'reverse': return '\x1b[7m'
-      case 'hidden': return '\x1b[8m'
+    switch (color) {
+      case LogColor.reset: return '\x1b[0m'
+      case LogColor.bright: return '\x1b[1m'
+      case LogColor.dim: return '\x1b[2m'
+      case LogColor.underscore: return '\x1b[4m'
+      case LogColor.blink: return '\x1b[5m'
+      case LogColor.reverse: return '\x1b[7m'
+      case LogColor.hidden: return '\x1b[8m'
       
-      case 'black': return '\x1b[30m'
-      case 'red': return '\x1b[31m'
-      case 'green': return '\x1b[32m'
-      case 'yellow': return '\x1b[33m'
-      case 'blue': return '\x1b[34m'
-      case 'magenta': return '\x1b[35m'
-      case 'cyan': return '\x1b[36m'
-      case 'white': return '\x1b[37m'
+      case LogColor.black: return '\x1b[30m'
+      case LogColor.red: return '\x1b[31m'
+      case LogColor.green: return '\x1b[32m'
+      case LogColor.yellow: return '\x1b[33m'
+      case LogColor.blue: return '\x1b[34m'
+      case LogColor.magenta: return '\x1b[35m'
+      case LogColor.cyan: return '\x1b[36m'
+      case LogColor.white: return '\x1b[37m'
       
-      case 'bgBlack': return '\x1b[40m'
-      case 'bgRed': return '\x1b[41m'
-      case 'bgGreen': return '\x1b[42m'
-      case 'bgYellow': return '\x1b[43m'
-      case 'bgBlue': return '\x1b[44m'
-      case 'bgMagenta': return '\x1b[45m'
-      case 'bgCyan': return '\x1b[46m'
-      case 'bgWhite': return '\x1b[47m'
+      case LogColor.bgBlack: return '\x1b[40m'
+      case LogColor.bgRed: return '\x1b[41m'
+      case LogColor.bgGreen: return '\x1b[42m'
+      case LogColor.bgYellow: return '\x1b[43m'
+      case LogColor.bgBlue: return '\x1b[44m'
+      case LogColor.bgMagenta: return '\x1b[45m'
+      case LogColor.bgCyan: return '\x1b[46m'
+      case LogColor.bgWhite: return '\x1b[47m'
+      
       default: return ''
     }
   }

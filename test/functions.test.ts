@@ -1,20 +1,12 @@
 import { expect } from 'chai'
 import * as fs from 'fs'
 import 'mocha'
-import { configFileName, Log, readConfigFile, resolveColors } from '../src/log'
+import { configFileName, Log, readConfigFile } from '../src/log'
 
 describe('functions', function() {
   beforeEach(function() {
     Log.globalLevel = 'admin'
     Log.levels = {}
-  })
-
-  describe('resolveColors', function() {
-    it('should replace all color strings with the correct code', function() {
-      let str = 'color(red)Error!!!!color(reset)color(blue)not'
-      let resolved = resolveColors(str)
-      expect(resolved).to.equal('\x1b[31mError!!!!\x1b[0m\x1b[34mnot')
-    })
   })
 
   describe('readConfigFile', function() {
