@@ -184,6 +184,18 @@ export class Log {
     this.lib(resolveColor('dim') + 'parameter: ' + name, value)
   }
 
+  calling(message: string, ...optionalParams: any[]): void {
+    this.lib(resolveColor('bright') + message, ...optionalParams)
+  }
+
+  called(message: string, ...optionalParams: any[]): void {
+    this.lib(resolveColor('bright') + message, ...optionalParams)
+  }
+
+  returning(message: string, ...optionalParams: any[]): void {
+    this.lib(resolveColor('bright') + message, ...optionalParams)
+  }
+
   createPrefix(color: string): string {
     let prefix = resolveColor(color)
 
