@@ -196,7 +196,7 @@ export class Log {
     this.lib(resolveColor('bright') + message, ...optionalParams)
   }
 
-  createPrefix(color: string): string {
+  createLocation(color: string): string {
     let prefix = resolveColor(color)
 
     if (this.mtName) {
@@ -219,7 +219,7 @@ export class Log {
       (this.location != undefined && this.location.length > 0 ? ' ( ' + this.location.join(this.locationSeparator) + ' ) ' : ' ')
   }
 
-  createMessage(color: string, message?: string, optionalParamCount?: number) {
+  createMessage(locationColor: string, message?: string, optionalParamCount?: number) {
     if (! message) {
       message = ''
     }
@@ -227,7 +227,7 @@ export class Log {
       message = resolveColor('dim') + message
     }
 
-    return this.createPrefix(color) + message + resolveColor('reset')
+    return this.createLocation(locationColor) + message + resolveColor('reset')
   }
 
   clone(): Log {
