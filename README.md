@@ -1,6 +1,6 @@
 # Knight Log by Coderitter
 
-A log library. Works in Node and in browsers.
+A log library with module scoped log level settings and improved log level names. Works in Node and in browsers.
 
 ## Install
 
