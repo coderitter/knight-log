@@ -352,7 +352,7 @@ export function readConfigFile() {
         var configJson = fs.readFileSync(configFile, 'utf8')
       }
       catch (e) {
-        console.log('Could not read content of log level config file: ' + e.message)
+        console.log('Could not read content of log level config file: ' + (e as Error).message)
         return 
       }
 
@@ -360,7 +360,7 @@ export function readConfigFile() {
         var config = JSON.parse(configJson)
       }
       catch (e) {
-        console.log('Could not parse JSON from log level config file: ' + e.message)
+        console.log('Could not parse JSON from log level config file: ' + (e as Error).message)
         return
       }
 
