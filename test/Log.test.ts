@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import 'mocha'
-import { Log, LogColor, logColor } from '../src/log'
+import { Log, LogColor } from '../src/log'
 
 describe('Log', function() {
   beforeEach(function() {
@@ -93,39 +93,39 @@ describe('Log', function() {
       Log.globalLevel = 'error'
       Log.levels['Filename'] = 'warn'
       Log.levels['Class'] = 'admin'
-      Log.levels['Class.method'] = 'lib'
-      Log.levels['Filename.ts'] = 'dev'
+      Log.levels['Class.method'] = 'dev'
+      Log.levels['Filename.ts'] = 'creator'
 
       let log = new Log('Filename.ts')
       log.clsName = 'Class'
       log.mtName = 'method'
 
-      expect(log.level).to.equal('dev')
+      expect(log.level).to.equal('creator')
     })
 
     it('should use the corresponding level for filename and function', function() {
       Log.globalLevel = 'error'
       Log.levels['function'] = 'warn'
       Log.levels['Filename.ts'] = 'admin'
-      Log.levels['Filename.ts > function'] = 'lib'
+      Log.levels['Filename.ts > function'] = 'dev'
 
       let log = new Log('Filename.ts')
       log.fnName = 'function'
 
-      expect(log.level).to.equal('lib')
+      expect(log.level).to.equal('dev')
     })
 
     it('should use the corresponding level for the filename and class', function() {
       Log.globalLevel = 'error'
       Log.levels['Filename'] = 'warn'
       Log.levels['Class'] = 'admin'
-      Log.levels['Filename.ts'] = 'lib'
-      Log.levels['Filename.ts > Class'] = 'dev'
+      Log.levels['Filename.ts'] = 'dev'
+      Log.levels['Filename.ts > Class'] = 'creator'
 
       let log = new Log('Filename.ts')
       log.clsName = 'Class'
 
-      expect(log.level).to.equal('dev')
+      expect(log.level).to.equal('creator')
     })
 
     it('should use the corresponding level for the filename, class and method', function() {
@@ -135,14 +135,14 @@ describe('Log', function() {
       Log.levels['Filename.method'] = 'warn'
       Log.levels['Class.method'] = 'warn'
       Log.levels['Filename.ts'] = 'admin'
-      Log.levels['Filename.ts > Class'] = 'lib'
-      Log.levels['Filename.ts > Class.method'] = 'dev'
+      Log.levels['Filename.ts > Class'] = 'dev'
+      Log.levels['Filename.ts > Class.method'] = 'creator'
 
       let log = new Log('Filename.ts')
       log.clsName = 'Class'
       log.mtName = 'method'
 
-      expect(log.level).to.equal('dev')
+      expect(log.level).to.equal('creator')
     })
   })
 

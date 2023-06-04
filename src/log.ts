@@ -103,7 +103,7 @@ export class Log {
     }
 
     if (mtName != undefined) {
-      clone.lib(`${logColor(LogColor.bright)}Entering '${mtName}'`)
+      clone.dev(`${logColor(LogColor.bright)}Entering '${mtName}'`)
     }
 
     clone.clsName = clsName
@@ -119,7 +119,7 @@ export class Log {
       clone.level = level
     }
 
-    clone.lib(`${logColor(LogColor.bright)}Entering '${fnName}'`)
+    clone.dev(`${logColor(LogColor.bright)}Entering '${fnName}'`)
     clone.fnName = fnName
 
     return clone
@@ -132,7 +132,7 @@ export class Log {
       clone.level = level
     }
 
-    clone.lib(`${logColor(LogColor.bright)}Entering '${mtName}'`)
+    clone.dev(`${logColor(LogColor.bright)}Entering '${mtName}'`)
     clone.mtName = mtName
 
     return clone
@@ -160,16 +160,6 @@ export class Log {
     this.admin(logColor(color) + message, ...optionalParams)
   }
 
-  lib(message?: any, ...optionalParams: any[]): void {
-    if (this.levelNumber >= levelToNumber('lib')) {
-      console.log(this.createMessage(LogColor.cyan, message, optionalParams?.length), ...optionalParams)
-    }
-  }
-
-  libColor(color: LogColor, message?: any, ...optionalParams: any[]): void {
-    this.lib(logColor(color) + message, ...optionalParams)
-  }
-
   dev(message?: any, ...optionalParams: any[]): void {
     if (this.levelNumber >= levelToNumber('dev')) {
       console.log(this.createMessage(LogColor.cyan, message, optionalParams?.length), ...optionalParams)
@@ -180,20 +170,30 @@ export class Log {
     this.dev(logColor(color) + message, ...optionalParams)
   }
 
+  creator(message?: any, ...optionalParams: any[]): void {
+    if (this.levelNumber >= levelToNumber('ceator')) {
+      console.log(this.createMessage(LogColor.cyan, message, optionalParams?.length), ...optionalParams)
+    }
+  }
+
+  creatorColor(color: LogColor, message?: any, ...optionalParams: any[]): void {
+    this.creator(logColor(color) + message, ...optionalParams)
+  }
+
   param(name: string, value: any): void {
-    this.lib(logColor(LogColor.dim) + 'parameter: ' + name, value)
+    this.dev(logColor(LogColor.dim) + 'parameter: ' + name, value)
   }
 
   calling(message: string, ...optionalParams: any[]): void {
-    this.lib(logColor(LogColor.bright) + message, ...optionalParams)
+    this.dev(logColor(LogColor.bright) + message, ...optionalParams)
   }
 
   called(message: string, ...optionalParams: any[]): void {
-    this.lib(logColor(LogColor.bright) + message, ...optionalParams)
+    this.dev(logColor(LogColor.bright) + message, ...optionalParams)
   }
 
   returning(message: string, ...optionalParams: any[]): void {
-    this.lib(logColor(LogColor.bright) + message, ...optionalParams)
+    this.dev(logColor(LogColor.bright) + message, ...optionalParams)
   }
 
   createLocation(color: LogColor): string {
@@ -257,8 +257,8 @@ function levelToNumber(level: string|undefined) {
     case 'error': return 1
     case 'warn': return 2
     case 'admin': return 3
-    case 'lib': return 4
-    case 'dev': return 5
+    case 'dev': return 4
+    case 'creator': return 5
   }
 }
 

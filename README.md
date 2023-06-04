@@ -64,10 +64,10 @@ There are five log levels. Some of them were renamed to better fit their intende
 - `error`: Print errors
 - `warn`: Print warnings
 - `admin` also known as `info`: Give information to an admin
-- `lib` also known as `debug`: Give information to a developer who uses your code but who does not want to change it
-- `dev` also known as `insane`: Give information to a developer who wants to change your code
+- `dev` also known as `debug`: Give information to a developer who want to use but not change your code
+- `creator` also known as `insane` or `trace`: Give information to developers who want to change your code
 
-Here you can see the corresponding methods. For the log levels `admin`, `lib` and `dev` there are also bright variants to let a message appear brighter. This works only in NodeJs, not in the browsers.
+Here you can see the corresponding methods. For the log levels `admin`, `dev` and `creator` there are also bright variants to let a message appear brighter. This works only in NodeJs, not in the browsers.
 
 ```typescript
 log.error('An error occurred!', error)
@@ -76,13 +76,13 @@ log.warn('The behaviour of the code will change!')
 log.admin('Connecting to database...')
 log.adminBright('Success connecting to database')
 
-log.lib('Month is greater than march. Picking 3 day period.')
-log.libBright('Going into recursion...')
+log.dev('Month is greater than march. Picking 3 day period.')
+log.devBright('Going into recursion...')
 
-log.dev('Database result looks like this', result)
-log.devBright('This is important')
+log.creator('Database result looks like this', result)
+log.creatorBright('This is important')
 
-// Useful to highlight parameters (log level equals "lib")
+// Useful to highlight parameters (log level equals "dev")
 log.param('parameterName', parameterValue)
 ```
 
@@ -101,15 +101,15 @@ The prepended location information is also color coded depending on the log leve
 - `error`: red
 - `warning`: yellow
 - `admin`: white
-- `lib`: cyan
 - `dev`: cyan
+- `creator`: cyan
 
 ### Set the global log level
 
 The global log level is the default which is used if there is no other definition.
 
 ```typescript
-log.globalLevel = 'error' // 'warning', 'admin', 'lib', 'dev'
+log.globalLevel = 'error' // 'warning', 'admin', 'dev', 'creator'
 ```
 
 Like in any other logging library `error` will only display errors while `warning` will display warnings and errors and so on.
@@ -175,7 +175,7 @@ You can also set the log level directly on the logger but which is discouraged b
 let log = new Log('filename.ts', 'dev')
 
 // or set it on the property
-log.level = 'lib'
+log.level = 'dev'
 ```
 
 ### Prepend additional location information
@@ -190,7 +190,7 @@ for (let entity of entities) {
   l.location = [ 'id', entity.id ]
   // you can define a separator which is used when the array is joined into a string
   l.locationSeparator = ': '
-  l.lib('The next entity is being processed...')
+  l.dev('The next entity is being processed...')
 }
 ```
 
@@ -205,7 +205,7 @@ ClassName.method ( id: 1 ) The next entity is being processed...
 The first given message parameter may contain color definitions.
 
 ```typescript
-log.debug('The value was color(magenta)undefined')
+log.dev('The value was color(magenta)undefined')
 ```
 
 This will output the word `undefined` with a magenta color.
