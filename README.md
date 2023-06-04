@@ -13,7 +13,7 @@ A log library with module scoped log level settings and improved log level names
 Instantiate a new logger per file. The constructor takes the filename as parameter. Start with this logging object in your file and use it to derive loggers for classes, methods and functions from it. The given location is prepended to every log message and used to be able to set log levels for certain locations only.
 
 ```typescript
-import Log from 'knight-log'
+import { Log } from 'knight-log'
 
 // Create a logger for your file
 let log = new Log('filename.ts')
@@ -43,7 +43,7 @@ class ClassName {
 If your filename equals the class name but without the extension you can directly derive a method logger from the file logger.
 
 ```typescript
-import Log from 'knight-log'
+import { Log } from 'knight-log'
 
 // Create your file-related logger
 let log = new Log('ClassName.ts')
