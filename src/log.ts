@@ -181,19 +181,19 @@ export class Log {
   }
 
   param(name: string, value: any): void {
-    this.dev(logColor(LogColor.dim) + 'parameter: ' + name, value)
+    this.dev(logColor(LogColor.dim) + 'Parameter: ' + name, value)
   }
 
-  calling(message: string, ...optionalParams: any[]): void {
-    this.dev(logColor(LogColor.bright) + message, ...optionalParams)
+  calling(methodName: string, ...optionalParams: any[]): void {
+    this.dev(logColor(LogColor.bright) + 'Calling "' + methodName + '"...', ...optionalParams)
   }
 
-  called(message: string, ...optionalParams: any[]): void {
-    this.dev(logColor(LogColor.bright) + message, ...optionalParams)
+  called(methodName: string, ...optionalParams: any[]): void {
+    this.dev(logColor(LogColor.bright) + 'Called "' + methodName + '"...', ...optionalParams)
   }
 
-  returning(message: string, ...optionalParams: any[]): void {
-    this.dev(logColor(LogColor.bright) + message, ...optionalParams)
+  returning(message?: string, ...optionalParams: any[]): void {
+    this.dev(logColor(LogColor.bright) + 'Returning ' + (message && message.length ? ' "' : '') + message + (message && message.length ? '"' : '') + '...', ...optionalParams)
   }
 
   createLocation(color: LogColor): string {
