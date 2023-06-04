@@ -14,7 +14,7 @@ describe('functions', function() {
       let config = {
         'globalLevel': 'silent',
         'a': 'warn',
-        'b': 'user'
+        'b': 'dev'
       }
 
       let configJson = JSON.stringify(config)
@@ -24,7 +24,7 @@ describe('functions', function() {
       
       expect(Log.levels['globalLevel']).to.equal('silent')
       expect(Log.levels['a']).to.equal('warn')
-      expect(Log.levels['b']).to.equal('user')
+      expect(Log.levels['b']).to.equal('dev')
     })
 
     it('should only set values if they evaluate to true', function() {
@@ -53,7 +53,7 @@ describe('functions', function() {
   describe('loglevels.json file watcher', function() {
     it('should re-read the content of loglevels.json', async function() {
       let config = {
-        'globalLevel': 'user',
+        'globalLevel': 'dev',
         'c': 'admin',
         'd': 'dev'
       }
@@ -65,7 +65,7 @@ describe('functions', function() {
       await new Promise(resolve => setTimeout(resolve, 100))
 
       expect(Log.globalLevel).to.equal('admin')
-      expect(Log.levels['globalLevel']).to.equal('user')
+      expect(Log.levels['globalLevel']).to.equal('dev')
       expect(Log.levels['a']).to.be.undefined
       expect(Log.levels['b']).to.be.undefined
       expect(Log.levels['c']).to.equal('admin')
@@ -74,7 +74,7 @@ describe('functions', function() {
       let origConfig = {
         'globalLevel': 'silent',
         'a': 'warn',
-        'b': 'user'
+        'b': 'dev'
       }
 
       let origConfigJson = JSON.stringify(origConfig)
