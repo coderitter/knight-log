@@ -16,26 +16,26 @@ Instantiate a new logger per file. The constructor takes the filename as paramet
 import { Log } from 'knight-log'
 
 // Create a logger for your file
-let log = new Log('filename.ts')
+const log = new Log('filename.ts')
 
 function functionName() {
   // Create a logger for a function using the file-related logger
-  let l = log.fn('functionName')
+  const l = log.fn('functionName')
 }
 
 // Create a logger for a class using the file-related logger
-let clsLog = log.cls('ClassName')
+const clsLog = log.cls('ClassName')
 
 class ClassName {
 
   method1() {
     // Create a logger for a method using the class-related logger
-    let l = clsLog.mt('method1')
+    const l = clsLog.mt('method1')
   }
 
   method2() {
     // Create a logger for a method using the file-related logger
-    let l = log.cls('ClassName', 'method2')
+    const l = log.cls('ClassName', 'method2')
   }
 }
 ```
@@ -46,13 +46,13 @@ If your filename equals the class name but without the extension you can directl
 import { Log } from 'knight-log'
 
 // Create your file-related logger
-let log = new Log('ClassName.ts')
+const log = new Log('ClassName.ts')
 
 class ClassName {
 
   method() {
     // Create a logger for a method using the file-related logger
-    let l = log.mt('method')
+    const l = log.mt('method')
   }
 }
 ```
@@ -172,7 +172,7 @@ You can also set the log level directly on the logger but which is discouraged b
 
 ```typescript
 // use the constructor parameter
-let log = new Log('filename.ts', 'dev')
+const log = new Log('filename.ts', 'dev')
 
 // or set it on the property
 log.level = 'dev'
@@ -185,7 +185,7 @@ Sometimes you iterate through a loop processing different database entities. To 
 There is a property `location` on every logger which is an array that you can fill with arbitrary many strings which will be appended to the already existing location information (filename, class name, ...).
 
 ```typescript
-for (let entity of entities) {
+for (const entity of entities) {
   // the location property is just an array consisting of strings
   l.location = [ 'id', entity.id ]
   // you can define a separator which is used when the array is joined into a string
