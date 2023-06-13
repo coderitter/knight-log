@@ -19,17 +19,17 @@ export class Log {
 
   get filenameWithoutExtension(): string {
     let split = this.filename.split('.')
-    return split.length > 0 ? split[0] : 'filenameWithoutExtension'  
+    return split.length > 0 ? split[0] : 'filenameWithoutExtension'
   }
 
   get clsName(): string {
     if (this._clsName == undefined) {
       return this.filenameWithoutExtension
     }
-    
+
     return this._clsName
   }
-  
+
   set clsName(clsName: string) {
     this._clsName = clsName
   }
@@ -83,7 +83,7 @@ export class Log {
     if (Log.levels != undefined && Log.levels.globalLevel != undefined && Log.levels.globalLevel.length > 0) {
       return Log.levels.globalLevel
     }
-    
+
     return Log.globalLevel
   }
 
@@ -95,7 +95,7 @@ export class Log {
     return levelToNumber(this.level)
   }
 
-  cls(clsName: string, mtName?: string): Log {    
+  cls(clsName: string, mtName?: string): Log {
     let clone = this.clone()
 
     if (mtName != undefined) {
@@ -245,8 +245,8 @@ export class Log {
 
   static stopWatcher() {
     if (this.watcher) {
-      this.watcher.stop()
-      console.log('Stopped watcher for loglevels.json')
+      this.watcher.close()
+      console.log('Closed watcher for loglevels.json')
     }
   }
 }
@@ -299,7 +299,7 @@ export function logColor(color: LogColor): string {
       case LogColor.blink: return '\x1b[5m'
       case LogColor.reverse: return '\x1b[7m'
       case LogColor.hidden: return '\x1b[8m'
-      
+
       case LogColor.black: return '\x1b[30m'
       case LogColor.red: return '\x1b[31m'
       case LogColor.green: return '\x1b[32m'
@@ -308,7 +308,7 @@ export function logColor(color: LogColor): string {
       case LogColor.magenta: return '\x1b[35m'
       case LogColor.cyan: return '\x1b[36m'
       case LogColor.white: return '\x1b[37m'
-      
+
       case LogColor.bgBlack: return '\x1b[40m'
       case LogColor.bgRed: return '\x1b[41m'
       case LogColor.bgGreen: return '\x1b[42m'
@@ -317,7 +317,7 @@ export function logColor(color: LogColor): string {
       case LogColor.bgMagenta: return '\x1b[45m'
       case LogColor.bgCyan: return '\x1b[46m'
       case LogColor.bgWhite: return '\x1b[47m'
-      
+
       default: return ''
     }
   }
@@ -344,7 +344,7 @@ export function readConfigFile() {
     // it will result in a critical warning though: Critical dependency: the request of a dependency is an expression
     let fs = require('fs')
     let configFile = configFileName()
-    
+
     if (fs.existsSync(configFile)) {
       console.log('Found log level config file: ' + configFile)
 
@@ -353,7 +353,7 @@ export function readConfigFile() {
       }
       catch (e) {
         console.log('Could not read content of log level config file: ' + (e as Error).message)
-        return 
+        return
       }
 
       try {
