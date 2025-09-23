@@ -1,6 +1,6 @@
 {
   "name": "knight-log",
-  "version": "2.0.0-rc.3",
+  "version": "2.0.0-rc.4",
   "description": "A log library with module scoped log level settings and improved log level names",
   "main": "lib/log.js",
   "types": "lib/log.d.ts",
