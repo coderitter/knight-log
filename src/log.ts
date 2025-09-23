@@ -248,6 +248,25 @@ export class Log {
         return clone
     }
 
+    static startWatcher() {
+        if (window == undefined) {
+            // requiring fs with the help of a string variable will confuse webpack to not throw this error
+            // Module not found: Error: Can't resolve 'fs' in
+            // it will result in a critical warning though: Critical dependency: the request of a dependency is an expression
+            let fs = require('fs')
+
+            if (fs.existsSync(configFileName())) {
+                // TODO: close watcher maybe: watcher.close()
+                Log.watcher = fs.watch(configFileName(), () => {
+                    console.log('loglevels.json changed. Re-reading content...')
+                    readConfigFile()
+                })
+
+                console.log('Installed file watcher for loglevels.json for package ' + __dirname)
+            }
+        }
+    }
+
     static stopWatcher() {
         if (this.watcher) {
             this.watcher.close()
@@ -389,20 +408,3 @@ export function readConfigFile() {
 }
 
 readConfigFile()
-
-if (typeof window === 'undefined') {
-    // requiring fs with the help of a  string variable will confuse webpack to not throw this error
-    // Module not found: Error: Can't resolve 'fs' in
-    // it will result in a critical warning though: Critical dependency: the request of a dependency is an expression
-    let fs = require('fs')
-
-    if (fs.existsSync(configFileName())) {
-        // TODO: close watcher maybe: watcher.close()
-        Log.watcher = fs.watch(configFileName(), () => {
-            console.log('loglevels.json changed. Re-reading content...')
-            readConfigFile()
-        })
-
-        console.log('Installed file watcher for loglevels.json for package ' + __dirname)
-    }
-}
